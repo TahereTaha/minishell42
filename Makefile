@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/11/19 18:58:25 by tatahere         ###   ########.fr        #
+#    Updated: 2024/11/19 19:49:09 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,12 +49,13 @@ CINC			+=	-I$(INC_DIR)
 CFLAGS			+=	$(CINC)
 
 #	debug
-CDEBUG			+=	-g -fsanitize=address
+CDEBUG			+=	-g #-fsanitize=address
 CFLAGS			+=	$(CDEBUG)
 
 # ============================ files ========================================= #
 
-OBJS			:=	main.o	\
+OBJS			:=	main.o		\
+					prompt.o	\
 
 OBJS			:=	$(addprefix $(BIN_DIR), $(OBJS))
 DEPS			:=	$(OBJS:.o=.d)
