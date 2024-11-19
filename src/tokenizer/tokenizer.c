@@ -1,48 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 19:38:10 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/19 20:40:38 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/19 20:39:19 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
-#include "libft.h"
+#include "ft_list.h"
 #include "minishell.h"
 
-//	temporal this is just a mock of the run command
-#include <stdlib.h>
-int	run_command(char *cmd)
+#include <stdio.h>
+
+int	tokenize(t_list **token_list_ref, char *cmd)
 {
-	t_list	*token;
 	int		err;
+	t_list	*token;
 
-	err = tokenize(&token, cmd);
-	free(cmd);
-	ft_lstclear(&token, (t_del) free_token);
-	return (0);
-}
-
-int prompt(void)
-{
-	char	*input;
-
-	while (42)
+	token = NULL;
+	*token_list_ref = token;
+	err = check_sintax_error_1st(cmd);
+	if (err)
 	{
-		input = readline("minishell: ");
-		if (!input)
-			return (0);
-		if (*input)
-			add_history(input);
-		run_command(input);
+		printf("sintax_error\n");
+		return (err);
 	}
 	return (0);
 }
-

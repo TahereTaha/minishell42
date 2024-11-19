@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/11/19 19:49:09 by tatahere         ###   ########.fr        #
+#    Updated: 2024/11/19 20:41:22 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,13 +54,16 @@ CFLAGS			+=	$(CDEBUG)
 
 # ============================ files ========================================= #
 
-OBJS			:=	main.o		\
-					prompt.o	\
+OBJS			:=	main.o							\
+					prompt.o						\
+					tokenizer.o						\
+					free_token.o					\
+					check_sintax_error_1st.o		\
 
 OBJS			:=	$(addprefix $(BIN_DIR), $(OBJS))
 DEPS			:=	$(OBJS:.o=.d)
 
-VPATH			:=	src
+VPATH			:=	src:src/tokenizer
 
 # =========================== rules ========================================= #
 
