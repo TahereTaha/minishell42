@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   manage_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 11:21:18 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/20 10:41:30 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/20 11:07:39 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
 
-#include "ft_list.h"
+#include "libft.h"
 #include "minishell.h"
 
-#include <stdio.h>
-
-int	tokenize(t_list **token_list_ref, char *cmd)
+static void	manage_syntax_error(void)
 {
-	int		err;
+	printf("syntax error\n");
+}
 
-	err = check_sintax_error_1st(cmd);
-	if (err)
-		return (err);
-	err = lexer(token_list_ref, cmd);
-	if (err)
-		return (err);
-	//print_token_list(*token_list_ref);
-	/*err = check_sintax_error_2nd(token_list_ref);
-	if (err)
-	{
-		ft_lstclear(token_list_ref, (t_del) free_token);
-		return (err);
-	}*/
-	return (0);
+static void	manage_system_error(int err)
+{
+	perror("minishell: ");
+	if (err == ENOMEM)
+		exit(1);
+	exit(42);
+}
+
+void	manage_error(int err)
+{
+	if (!err)
+		return ;
+	if (err != SYNTAX_ERROR)	//	if it is on errno
+		manage_system_error(err);
+	manage_syntax_error();
 }

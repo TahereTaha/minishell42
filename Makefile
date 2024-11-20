@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/11/19 20:41:22 by tatahere         ###   ########.fr        #
+#    Updated: 2024/11/20 11:02:15 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,14 +56,21 @@ CFLAGS			+=	$(CDEBUG)
 
 OBJS			:=	main.o							\
 					prompt.o						\
+					run_command.o					\
+					manage_error.o					\
 					tokenizer.o						\
-					free_token.o					\
 					check_sintax_error_1st.o		\
+					free_token.o					\
+					lexer.o							\
+					make_pipe_token.o				\
+					make_redirection_token.o		\
+					make_word_token.o				\
+					print_token_list.o				\
 
 OBJS			:=	$(addprefix $(BIN_DIR), $(OBJS))
 DEPS			:=	$(OBJS:.o=.d)
 
-VPATH			:=	src:src/tokenizer
+VPATH			:=	src:src/tokenizer:src/tokenizer/lexer
 
 # =========================== rules ========================================= #
 
