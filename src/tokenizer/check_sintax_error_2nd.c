@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:23:20 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 16:22:26 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:40:16 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	check_sintax_error_2nd(t_list *token)
 {
 	t_list	*node;
 
+	if (!token)
+		return (0);
 	node = token;
 	if (is_pipe(node))
 		return (SYNTAX_ERROR);
