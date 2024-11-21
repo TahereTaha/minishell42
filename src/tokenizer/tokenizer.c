@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 11:21:18 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:33:06 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ int	tokenize(t_list **token_list_ref, char *cmd)
 	if (err)
 		return (err);
 	//print_token_list(*token_list_ref);
-	/*err = check_sintax_error_2nd(token_list_ref);
+	err = check_sintax_error_2nd(*token_list_ref);
 	if (err)
-	{
-		ft_lstclear(token_list_ref, (t_del) free_token);
 		return (err);
-	}*/
 	return (0);
 }

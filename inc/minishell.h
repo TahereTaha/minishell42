@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 10:40:51 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:27:18 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef enum e_token_kind
 	WORD,
 	REDIRECTION,
 	PIPE,
-	TERMINAL_TOKEN,
 }	t_token_kind;
 
 typedef struct s_token
