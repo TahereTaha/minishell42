@@ -1,39 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 20:55:30 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/21 20:40:25 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/22 13:50:16 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <aio.h>
 #include <stdlib.h>
 
-#include "ft_list.h"
+#include "libft.h"
 #include "minishell.h"
 
-#include <stdio.h>
-
-int	tokenize(t_list **token_list_ref, char *cmd)
+size_t	get_char_len(char *str)
 {
+	size_t	i;
+
+	i = 1;
+	while (ft_isalnum(str[i]))
+		i++;
+	return (i);
+}
+
+char	*get_char_str(char *word)
+{
+	char	*str;
+	char	*key;
+	size_t	len;
 	int		err;
 
-	err = check_sintax_error_1st(cmd);
+	len = get_env_len(word);
+	key = ft_substr(word, 1, len - 1);
+	if (!key)
+		return (NULL);
+	err = env_read(key);
+	free(key);
 	if (err)
-		return (err);
-	err = lexer(token_list_ref, cmd);
-	if (err)
-		return (err);
-	print_token_list(*token_list_ref);
-	err = check_sintax_error_2nd(*token_list_ref);
-	if (err)
-		return (err);
-	err = expand_token_list(*token_list_ref);
-	if (err)
-		return (err);
-	print_token_list(*token_list_ref);
-	return (0);
+		return (NULL);
+	return (str);
 }

@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/11/21 16:36:32 by tatahere         ###   ########.fr        #
+#    Updated: 2024/11/22 13:47:54 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,22 +61,36 @@ OBJS_MAIN		:=	main.o							\
 
 OBJS			+=	$(OBJS_MAIN)
 
+OBJS_ENV		:=	env_read.o						\
+
+OBJS			+=	$(OBJS_ENV)
+
 OBJS_TOKENIZER	:=	tokenizer.o						\
 					check_sintax_error_1st.o		\
 					check_sintax_error_2nd.o		\
+					tokenizer_utils.o				\
 					free_token.o					\
 					lexer.o							\
 					make_pipe_token.o				\
 					make_redirection_token.o		\
 					make_word_token.o				\
 					print_token_list.o				\
+					char.o							\
+					env.o							\
+					quote.o							\
+					expand_token_list.o				\
+					expand_word.o					\
 
 OBJS			+=	$(OBJS_TOKENIZER)
 
 OBJS			:=	$(addprefix $(BIN_DIR), $(OBJS))
 DEPS			:=	$(OBJS:.o=.d)
 
-VPATH			:=	src:src/tokenizer:src/tokenizer/lexer
+VPATH			+=	src
+VPATH			+=	:src/tokenizer
+VPATH			+=	:src/tokenizer/lexer
+VPATH			+=	:src/tokenizer/word_expansion
+VPATH			+=	:src/enviroment
 
 # =========================== rules ========================================= #
 

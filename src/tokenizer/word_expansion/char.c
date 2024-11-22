@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   char.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 20:55:30 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/21 20:31:10 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/22 13:48:16 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <aio.h>
 #include <stdlib.h>
 
-#include "ft_list.h"
+#include "libft.h"
 #include "minishell.h"
 
-#include <stdio.h>
-
-int	tokenize(t_list **token_list_ref, char *cmd)
+size_t	get_char_len(char *str)
 {
-	int		err;
+	size_t	i;
 
-	err = check_sintax_error_1st(cmd);
-	if (err)
-		return (err);
-	err = lexer(token_list_ref, cmd);
-	if (err)
-		return (err);
-	print_token_list(*token_list_ref);
-	err = check_sintax_error_2nd(*token_list_ref);
-	if (err)
-		return (err);
-	err = expand_token_list(*token_list_ref);
-	if (err)
-		return (err);
-	print_token_list(*token_list_ref);
-	return (0);
+	i = 0;
+	while (str[i] != '$' && str[i] != '\'' && str[i] != '"')
+		i++;
+	return (i);
+}
+
+char	*get_char_str(char *word)
+{
+	char	*str;
+	size_t	len;
+
+	len = get_char_len(word);
+	str = ft_calloc(sizeof(char), len + 1);
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, word, len + 1);
+	return (str);
 }

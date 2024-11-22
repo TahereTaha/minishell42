@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_sintax_error_2nd.c                           :+:      :+:    :+:   */
+/*   env_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 11:23:20 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 21:03:28 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/21 17:05:32 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/22 13:47:14 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_list.h"
+#include <errno.h>
+
+#include "libft.h"
 #include "minishell.h"
 
-int	check_sintax_error_2nd(t_list *token)
+int	env_read(char **value_ref, char *key)
 {
-	t_list	*node;
+	char *val;
 
-	if (!token)
-		return (0);
-	node = token;
-	if (is_pipe(node))
-		return (SYNTAX_ERROR);
-	while (node->next)
-	{
-		if ((is_pipe(node) || is_redir(node)) && !is_word(node->next))
-			return (SYNTAX_ERROR);
-		node = node->next;
-	}
-	if (is_pipe(node) || is_redir(node))
-		return (SYNTAX_ERROR);
+	val = ft_strdup(key);
+	if (!val)
+		return (ENOMEM);
+	*value_ref = val;
 	return (0);
 }

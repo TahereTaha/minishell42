@@ -1,39 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   expand_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 20:55:30 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/21 20:59:53 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/21 21:16:34 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "minishel.h"
 
-#include "ft_list.h"
-#include "minishell.h"
-
-#include <stdio.h>
-
-int	tokenize(t_list **token_list_ref, char *cmd)
+static int	expand_token(t_list *node)
 {
+	t_token	*token;
 	int		err;
 
-	err = check_sintax_error_1st(cmd);
+	token = node->content;
+	err = expand_word(&(token->str));
 	if (err)
 		return (err);
-	err = lexer(token_list_ref, cmd);
-	if (err)
-		return (err);
-	print_token_list(*token_list_ref);
-	err = check_sintax_error_2nd(*token_list_ref);
-	if (err)
-		return (err);
-	err = expand_token_list(*token_list_ref);
-	if (err)
-		return (err);
-	print_token_list(*token_list_ref);
+	return (0);
+}
+
+int		expand_token_list(t_list *token)
+{
+	t_list	*node;
+	int		err;
+
+	err = 0;
+	node = token;
+	while (node)
+	{
+		if (is_word(node))
+			err = expand_token(node);
+		if (err)
+			return (err);
+		if (is_here_document(node))
+			node = node->next->next;
+		else
+			node = node->next;
+	}
 	return (0);
 }

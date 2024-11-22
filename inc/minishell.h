@@ -6,12 +6,14 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 11:27:18 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:44:50 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include <aio.h>
 
 # include "ft_list.h"
 
@@ -19,12 +21,12 @@
 
 //======  general  ======//
 
-int	prompt(void);
-int	run_command(char *cmd);
+int		prompt(void);
+int		run_command(char *cmd);
 
 //======  enviroment  ======//
 
-//	things
+int		env_read(char **value_ref, char *key);
 
 //======  tokenizer  ======//
 
@@ -53,6 +55,16 @@ int		make_word_token(t_list **node_ref, char *str);
 int		make_pipe_token(t_list **node_ref);
 int		make_redirection_token(t_list **node_ref, char *str);
 
+//	some utils
+
+int	is_redir(t_list *node);
+
+int	is_word(t_list *node);
+
+int	is_pipe(t_list *node);
+
+int	is_here_document(t_list *node);
+
 //	second sintax error check:
 //		check no empty pipe sections
 //		check no empty redirections
@@ -61,17 +73,32 @@ int		check_sintax_error_2nd(t_list *token);
 void	free_token(t_token *token);
 void	print_token_list(t_list *token);
 
-//======  word_expansion  ======//
+//	word_expansion
+
+char	*get_quote_str(char *str);
+size_t	get_quote_len(char *str);
+
+char	*get_env_str(char *str);
+size_t	get_env_len(char *str);
+
+char	*get_char_str(char *str);
+size_t	get_char_len(char *str);
+
+int		expand_word(char **str_ref);
+
+int		expand_token_list(t_list *token);
 
 //======  executer  ======//
 
-//======  redirection  ======//
+//	redirection
+
 
 //======  error handeling  ======//
 
 typedef enum e_minishell_errors
 {
 	SYNTAX_ERROR = 140,
+	NO_ENV_VAL,
 }	t_minishell_errors;
 
 void	manage_error(int err);
