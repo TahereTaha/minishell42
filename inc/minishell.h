@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 14:37:18 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 15:30:40 by taha             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		run_command(char *cmd);
 //======  enviroment  ======//
 
 int		env_read(char **value_ref, char *key);
+int		exit_status_read(void);
 
 //======  tokenizer  ======//
 

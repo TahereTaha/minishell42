@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/11/22 14:40:07 by tatahere         ###   ########.fr        #
+#    Updated: 2024/11/22 15:36:29 by taha             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CINC			+=	-I$(INC_DIR)
 CFLAGS			+=	$(CINC)
 
 #	debug
-CDEBUG			+=	-g -fsanitize=address
+CDEBUG			+=	-g #-fsanitize=address
 CFLAGS			+=	$(CDEBUG)
 
 # ============================ files ========================================= #
@@ -62,6 +62,7 @@ OBJS_MAIN		:=	main.o							\
 OBJS			+=	$(OBJS_MAIN)
 
 OBJS_ENV		:=	env_read.o						\
+					exit_status_read.o						\
 
 OBJS			+=	$(OBJS_ENV)
 
