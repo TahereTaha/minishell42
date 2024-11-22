@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:31:10 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 13:48:16 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:05:43 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	get_char_len(char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] != '$' && str[i] != '\'' && str[i] != '"')
+	while (str[i] && str[i] != '$' && str[i] != '\'' && str[i] != '"')
 		i++;
 	return (i);
 }

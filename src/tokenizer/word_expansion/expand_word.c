@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:30:01 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 20:57:27 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:13:27 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*get_section(char *str)
 
 	if (str[0] == '\'' || str[0] == '"')
 		section = get_quote_str(str);
-	else if (str[i] == '$')
+	else if (str[0] == '$')
 		section = get_env_str(str);
 	else
 		section = get_char_str(str);
@@ -45,7 +45,7 @@ static char	*get_section(char *str)
 	return (section);
 }
 
-static char	*combune(char *str1, char *str2)
+static char	*combine(char *str1, char *str2)
 {
 	char	*str3;
 
@@ -62,7 +62,7 @@ int	expand_word(char **str_ref)
 	char	*section;
 
 	i = 0;
-	str = ft_strdup(*str_ref);
+	str = ft_strdup("");
 	if (!str)
 		return (ENOMEM);
 	while ((*str_ref)[i])
@@ -73,7 +73,7 @@ int	expand_word(char **str_ref)
 		str = combine(str, section);
 		if (!str)
 			return (ENOMEM);
-		i += get_secton_len(&(*str_ref)[i]);
+		i += get_section_len(&(*str_ref)[i]);
 	}
 	free(*str_ref);
 	*str_ref = str;

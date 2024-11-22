@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 13:44:50 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:58:21 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		expand_token_list(t_list *token);
 typedef enum e_minishell_errors
 {
 	SYNTAX_ERROR = 140,
-	NO_ENV_VAL,
+	NO_ENV_KEY,
 }	t_minishell_errors;
 
 void	manage_error(int err);

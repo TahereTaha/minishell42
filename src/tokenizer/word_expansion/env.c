@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:40:25 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 13:50:16 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:03:42 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-size_t	get_char_len(char *str)
+size_t	get_env_len(char *str)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ size_t	get_char_len(char *str)
 	return (i);
 }
 
-char	*get_char_str(char *word)
+char	*get_env_str(char *word)
 {
 	char	*str;
 	char	*key;
@@ -37,9 +37,9 @@ char	*get_char_str(char *word)
 	key = ft_substr(word, 1, len - 1);
 	if (!key)
 		return (NULL);
-	err = env_read(key);
+	err = env_read(&str, key);
 	free(key);
-	if (err)
+	if (err && err != NO_ENV_KEY)
 		return (NULL);
 	return (str);
 }

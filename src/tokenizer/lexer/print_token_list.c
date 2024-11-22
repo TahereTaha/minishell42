@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 07:48:40 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 10:09:42 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:26:54 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static void	print_token(t_token *token)
 		printf("this token is a redirection.\n");
 	else
 		printf("this token is a redirection.\n");
-	printf("the token content are: %s\n", token->str);
+	if (token->kind == WORD)
+		printf("the token content are: >>%s<<\n", token->str);
+	else
+		printf("the token content are: %s\n", token->str);
 }
 
 void	print_token_list(t_list *token)

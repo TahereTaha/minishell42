@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:18:52 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 13:48:36 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:24:43 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ size_t	get_quote_len(char *str)
 
 	i = 0;
 	quotes = str[0];
+	i++;
 	while (str[i] && quotes != str[i])
 		i++;
 	return (i + 1);

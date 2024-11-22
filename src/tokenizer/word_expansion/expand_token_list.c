@@ -6,11 +6,12 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:59:53 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 21:16:34 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:00:09 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishel.h"
+#include "ft_list.h"
+#include "minishell.h"
 
 static int	expand_token(t_list *node)
 {
