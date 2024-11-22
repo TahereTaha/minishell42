@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 13:58:21 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:37:18 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,12 @@ size_t	get_env_len(char *str);
 char	*get_char_str(char *str);
 size_t	get_char_len(char *str);
 
+char	*get_quoted_char_str(char *str);
+size_t	get_quoted_char_len(char *str);
+
 int		expand_word(char **str_ref);
+
+int		expand_quoted_word(char **str_ref);
 
 int		expand_token_list(t_list *token);
 

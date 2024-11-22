@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote.c                                            :+:      :+:    :+:   */
+/*   quoted_char.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 18:18:52 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 14:46:57 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/22 14:38:06 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/22 14:39:09 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,25 @@
 #include "libft.h"
 #include "minishell.h"
 
-size_t	get_quote_len(char *str)
+size_t	get_quoted_char_len(char *str)
 {
 	size_t	i;
-	char	quotes;
 
 	i = 0;
-	quotes = str[0];
-	i++;
-	while (str[i] && quotes != str[i])
+	while (str[i] && str[i] != '$')
 		i++;
-	return (i + 1);
+	return (i);
 }
 
-char	*get_quote_str(char *word)
+char	*get_quoted_char_str(char *word)
 {
 	char	*str;
 	size_t	len;
-	int		err;
 
-	len = get_quote_len(word);
-	str = ft_calloc(sizeof(char), len - 1);
+	len = get_char_len(word);
+	str = ft_calloc(sizeof(char), len + 1);
 	if (!str)
 		return (NULL);
-	ft_strlcpy(str, word + 1, len - 1);
-	err = expand_quoted_word(&str);
-	if (err)
-		return (free(str), NULL);
+	ft_strlcpy(str, word, len + 1);
 	return (str);
 }
