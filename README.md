@@ -1,20 +1,14 @@
 # to do list
 
 - [x] vasics
-- [ ] tokenizer 1st stage
-	- [ ] sintax error
-		- [ ] check for unvalanced quotes
-	- [ ] lexer
-	- [ ] sintax error
-	- [ ] expanions
+- [x] tokenizer 1st stage
+	- [x] sintax error 1st
+	- [x] lexer
+	- [x] sintax error 2nd
+	- [x] expanions
 - [ ] executer 1st stage
 	- [ ] preparation
+	- [ ] here documents
 	- [ ] piping
 	- [ ] redirection
 	- [ ] execution
-
-# small things that I wish to change
-- [ ] move the run_command function to its own file.
-- [ ] to not have speling mistakes.
-- [ ] 
-
