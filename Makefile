@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/11/22 15:36:29 by taha             ###   ########.fr        #
+#    Updated: 2024/11/25 19:36:41 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CINC			+=	-I$(INC_DIR)
 CFLAGS			+=	$(CINC)
 
 #	debug
-CDEBUG			+=	-g #-fsanitize=address
+CDEBUG			+=	-g -fsanitize=address
 CFLAGS			+=	$(CDEBUG)
 
 # ============================ files ========================================= #
@@ -58,11 +58,12 @@ OBJS_MAIN		:=	main.o							\
 					prompt.o						\
 					run_command.o					\
 					manage_error.o					\
+					utils.o							\
 
 OBJS			+=	$(OBJS_MAIN)
 
 OBJS_ENV		:=	env_read.o						\
-					exit_status_read.o						\
+					exit_status_read.o				\
 
 OBJS			+=	$(OBJS_ENV)
 
@@ -86,6 +87,15 @@ OBJS_TOKENIZER	:=	tokenizer.o						\
 
 OBJS			+=	$(OBJS_TOKENIZER)
 
+OBJS_EXECUTER	:=	execute_cmd.o					\
+					make_argv.o						\
+					make_cmd.o						\
+					make_cmd_list.o					\
+					make_redir.o					\
+					print_cmd_list.o				\
+
+OBJS			+=	$(OBJS_EXECUTER)
+
 OBJS			:=	$(addprefix $(BIN_DIR), $(OBJS))
 DEPS			:=	$(OBJS:.o=.d)
 
@@ -94,6 +104,8 @@ VPATH			+=	:src/tokenizer
 VPATH			+=	:src/tokenizer/lexer
 VPATH			+=	:src/tokenizer/word_expansion
 VPATH			+=	:src/enviroment
+VPATH			+=	:src/executer
+VPATH			+=	:src/executer/preparation
 
 # =========================== rules ========================================= #
 

@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_command.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 10:24:58 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/25 19:14:33 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/24 15:42:37 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/25 19:37:01 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
-#include "libft.h"
-#include "ft_list.h"
-#include "minishell.h"
-
-int	run_command(char *cmd)
+void	free_strs(char **strs)
 {
-	t_list	*token;
-	int		err;
+	size_t	i;
 
-	err = tokenize(&token, cmd);
-	free(cmd);
-	if (err)
+	i = 0;
+	while (strs[i])
 	{
-		ft_lstclear(&token, (t_del) free_token);
-		return (err);
+		free(strs[i]);
+		i++;
 	}
-	err = execute_cmd(token);
-	ft_lstclear(&token, (t_del) free_token);
-	if (err)
-		return (err);
-	return (0);
+	free(strs);
 }

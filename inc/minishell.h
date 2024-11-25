@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 15:30:40 by taha             ###   ########.fr       */
+/*   Updated: 2024/11/25 20:07:20 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 
 int		prompt(void);
 int		run_command(char *cmd);
+
+//	utils
+void	free_strs(char **strs);
 
 //======  enviroment  ======//
 
@@ -96,8 +99,52 @@ int		expand_token_list(t_list *token);
 
 //======  executer  ======//
 
-//	redirection
+typedef enum e_redir_kind
+{
+	WRITE_TO_FILE,
+	APPEND_TO_FILE,
+	READ_FROM_FILE,
+	HERE_DOCUMENT,
+}	t_redir_kind;
 
+typedef struct s_redir
+{
+	t_redir_kind	kind;
+	char			*str;
+	int				fd;
+}	t_redir;
+
+typedef struct	s_cmd
+{
+	char	**argv;
+	t_list	*redir;
+	int		pipe_front;
+	int		pipe_back;
+}	t_cmd;
+
+const static char	*g_built_in_name[] = {"echo","pwd"};
+
+//	this is for converting the token list to command list
+int		make_redir(t_list *token, t_list **redir_list_ref);
+void	free_redir(t_redir *redir);
+char	**make_argv(t_list *token);
+t_cmd	*make_cmd(t_list *token);
+void	free_cmd(t_cmd *cmd);
+
+//	this will free the token
+t_list	*make_cmd_list(t_list *token);
+
+void	print_cmd_list(t_list *cmd);
+
+int		run_here_documents(t_list *cmd);
+
+int		execute_simple_cmd(t_cmd *cmd);
+int		execute_program(t_cmd *cmd);
+int		execute_builtin(t_cmd *cmd);
+
+//int		execute_pipe(t_list *cmd);
+
+int		execute_cmd(t_list *token);
 
 //======  error handeling  ======//
 

@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_command.c                                      :+:      :+:    :+:   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 10:24:58 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/25 19:14:33 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/25 19:52:57 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <errno.h>
 
 #include "libft.h"
 #include "ft_list.h"
 #include "minishell.h"
 
-int	run_command(char *cmd)
+int		execute_cmd(t_list *token)
 {
-	t_list	*token;
-	int		err;
+	t_list	*cmd;
 
-	err = tokenize(&token, cmd);
-	free(cmd);
-	if (err)
-	{
-		ft_lstclear(&token, (t_del) free_token);
-		return (err);
-	}
-	err = execute_cmd(token);
-	ft_lstclear(&token, (t_del) free_token);
-	if (err)
-		return (err);
+	cmd = make_cmd_list(token);
+	if (!cmd)
+		return (ENOMEM);
+	print_cmd_list(cmd);
+	ft_lstclear(&cmd, (t_del) free_cmd);
 	return (0);
 }
+
