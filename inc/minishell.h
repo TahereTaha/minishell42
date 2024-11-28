@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
+/*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/25 20:07:20 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:41:16 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,34 @@ void	free_strs(char **strs);
 
 //======  enviroment  ======//
 
-int		env_read(char **value_ref, char *key);
-int		exit_status_read(void);
+# define ENV_SUCCESS			0
+# define ENV_ERR_NULL_CTX		1
+# define ENV_ERR_MEM_ALLOC		2
+# define ENV_ERR_KEY_EXISTS		3
+# define ENV_ERR_KEY_NOT_FOUND	4
+# define ENV_ERR_INVALID_INPUT	5
+
+typedef struct s_key_value_pair
+{
+	char					*key;
+	char					*value;
+	struct s_key_value_pair	*next;
+}	t_key_value_pair;
+
+typedef struct s_env_ctx
+{
+	t_key_value_pair	*key_value_pair;
+	int					exit_status;
+}	t_env_ctx;
+
+int					exit_status_read(void);
+int					env_create_ctx(t_env_ctx **ctx, char **env);
+int					env_delete_ctx(t_env_ctx *ctx);
+int					env_add(t_env_ctx *ctx, const char *key, const char *value);
+int					env_update(t_env_ctx *ctx, const char *key,	const char *new_key, const char *new_value);
+int					env_delete(t_env_ctx *ctx, const char *key);
+const char			*env_read(t_env_ctx *ctx, const char *key);
+t_key_value_pair	*create_pair(const char *key, const char *value);
 
 //======  tokenizer  ======//
 

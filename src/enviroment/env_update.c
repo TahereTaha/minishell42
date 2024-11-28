@@ -1,50 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_read.c                                         :+:      :+:    :+:   */
+/*   env_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 17:05:32 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/28 17:26:43 by gasroman         ###   ########.fr       */
+/*   Created: 2024/11/27 11:19:02 by gasroman          #+#    #+#             */
+/*   Updated: 2024/11/28 17:25:34 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
 
-// int	env_read(char **value_ref, char *key)
-// {
-// 	char *val;
-
-// 	if (key[0] == 't')
-// 	{
-// 		val = ft_strdup("");
-// 		*value_ref = val;
-// 		return (NO_ENV_KEY);
-// 	}
-// 	val = ft_strdup(key);
-// 	if (!val)
-// 		return (ENOMEM);
-// 	*value_ref = val;
-// 	return (0);
-// }
-
-const char	*env_read(t_env_ctx *ctx, const char *key)
+int	env_update(t_env_ctx *ctx, const char *key,
+	const char *new_key, const char *new_value)
 {
 	t_key_value_pair	*current;
 
 	if (!ctx || !key)
-		return (NULL);
+		return (ENV_ERR_NULL_CTX);
 	current = ctx->key_value_pair;
 	while (current)
 	{
 		if (ft_strncmp(current->key, key, ft_strlen(key)) == 0)
-			return (current->value);
+		{
+			if (new_key)
+			{
+				if (env_update_pair(&current->key, new_key) != ENV_SUCCESS)
+					return (ENV_ERR_MEM_ALLOC);
+			}
+			if (new_value)
+			{
+				if (env_update_pair(&current->value, new_value) != ENV_SUCCESS)
+					return (ENV_ERR_MEM_ALLOC);
+			}
+			return (ENV_SUCCESS);
+		}
 		current = current->next;
 	}
-	return (NULL);
+	return (ENV_ERR_KEY_NOT_FOUND);
 }

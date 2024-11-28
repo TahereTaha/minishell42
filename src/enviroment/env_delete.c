@@ -1,50 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_read.c                                         :+:      :+:    :+:   */
+/*   env_delete.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 17:05:32 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/28 17:26:43 by gasroman         ###   ########.fr       */
+/*   Created: 2024/11/27 15:20:32 by gasroman          #+#    #+#             */
+/*   Updated: 2024/11/28 17:26:20 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
+#include "mnishell.h"
 
-#include "libft.h"
-#include "minishell.h"
-#include <stdio.h>
-
-// int	env_read(char **value_ref, char *key)
-// {
-// 	char *val;
-
-// 	if (key[0] == 't')
-// 	{
-// 		val = ft_strdup("");
-// 		*value_ref = val;
-// 		return (NO_ENV_KEY);
-// 	}
-// 	val = ft_strdup(key);
-// 	if (!val)
-// 		return (ENOMEM);
-// 	*value_ref = val;
-// 	return (0);
-// }
-
-const char	*env_read(t_env_ctx *ctx, const char *key)
+int	env_delete(t_env_ctx *ctx, const char *key)
 {
 	t_key_value_pair	*current;
+	t_key_value_pair	*previous;
 
 	if (!ctx || !key)
-		return (NULL);
+		return (ENV_ERR_NULL_CTX);
 	current = ctx->key_value_pair;
+	previous = NULL;
 	while (current)
 	{
 		if (ft_strncmp(current->key, key, ft_strlen(key)) == 0)
-			return (current->value);
+		{
+			if (previous)
+				previous->next = current->next;
+			else
+				ctx->key_value_pair = current->next;
+			free(current->key);
+			free(current->value);
+			free(current);
+			return (ENV_SUCCESS);
+		}
+		previous = current;
 		current = current->next;
 	}
-	return (NULL);
+	return (ENV_ERR_KEY_NOT_FOUND);
 }
