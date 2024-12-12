@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*   update_key_value.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/26 12:17:06 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/10 06:34:08 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/10 06:37:40 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,18 @@
 #include <errno.h>
 
 #include "libft.h"
-#include "ft_list.h"
 #include "minishell.h"
+#include "enviroment.h"
 
-int		execute_cmd(t_list *token)
+int	update_key_value(t_key_value *pair, char *new_value)
 {
-	t_list	*cmd;
+	char	*cpy_value;
 
-	cmd = make_cmd_list(token);
-	if (!cmd)
+	cpy_value = ft_strdup(new_value);
+	if (!cpy_value)
 		return (ENOMEM);
-	print_cmd_list(cmd);
-	err = run_here_documents(t_list *cmd);
-	if (err)
-	{
-		ft_lstclear(&cmd, (t_del) free_cmd);
-		return (err);
-	}
-	print_cmd_list(cmd);
-	ft_lstclear(&cmd, (t_del) free_cmd);
+	free(pair->value);
+	pair->value = cpy_value;
 	return (0);
 }
 

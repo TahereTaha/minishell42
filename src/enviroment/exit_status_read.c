@@ -6,18 +6,13 @@
 /*   By: taha <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:26:17 by taha              #+#    #+#             */
-/*   Updated: 2024/11/22 15:29:34 by taha             ###   ########.fr       */
+/*   Updated: 2024/12/10 07:50:32 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-
 #include "minishell.h"
 
-int	exit_status_read(void)
+int	exit_status_read(t_env_ctx *env_ctx)
 {
-	static int	exit_status;
-
-	exit_status++;
-	return (exit_status);
+	return (env_ctx->exit_status);
 }

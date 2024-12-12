@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/27 15:41:16 by gasroman         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:52:19 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,27 @@ void	free_strs(char **strs);
 # define ENV_ERR_KEY_NOT_FOUND	4
 # define ENV_ERR_INVALID_INPUT	5
 
-typedef struct s_key_value_pair
+typedef struct s_key_value
 {
-	char					*key;
-	char					*value;
-	struct s_key_value_pair	*next;
-}	t_key_value_pair;
+	char	*key;
+	char	*value;
+}	t_key_value;
 
 typedef struct s_env_ctx
 {
-	t_key_value_pair	*key_value_pair;
-	int					exit_status;
+	t_list	*key_value;
+	int		exit_status;
 }	t_env_ctx;
 
-int					exit_status_read(void);
-int					env_create_ctx(t_env_ctx **ctx, char **env);
-int					env_delete_ctx(t_env_ctx *ctx);
-int					env_add(t_env_ctx *ctx, const char *key, const char *value);
-int					env_update(t_env_ctx *ctx, const char *key,	const char *new_key, const char *new_value);
-int					env_delete(t_env_ctx *ctx, const char *key);
-const char			*env_read(t_env_ctx *ctx, const char *key);
-t_key_value_pair	*create_pair(const char *key, const char *value);
+t_env_ctx	*env_create_ctx(char **env);
+void		env_delete_ctx(t_env_ctx *ctx);
+
+int			exit_status_read(t_env_ctx *env_ctx);
+void		exit_status_set(t_env_ctx *env_ctx, int new_value);
+
+int			env_read(t_env_ctx *ctx, char **return_ref, char *key);
+int			env_set(t_env_ctx *ctx, char *key, char *value);
+int			env_unset(t_env_ctx *ctx, char *key);
 
 //======  tokenizer  ======//
 
@@ -178,6 +178,7 @@ typedef enum e_minishell_errors
 {
 	SYNTAX_ERROR = 140,
 	NO_ENV_KEY,
+	ENV_KEY_TAKEN,
 }	t_minishell_errors;
 
 void	manage_error(int err);

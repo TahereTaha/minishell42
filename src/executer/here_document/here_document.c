@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*   here_document.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/26 12:17:06 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/26 12:20:57 by tatahere          #+#    #+#             */
+/*   Updated: 2024/11/26 16:49:58 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <unistd.h>
 #include <errno.h>
+#include <readline/readline.h>
 
 #include "libft.h"
 #include "ft_list.h"
-#include "minishell.h"
 
-int		execute_cmd(t_list *token)
+static int	here_document(int *fd_ref, char *delimiter)
 {
-	t_list	*cmd;
+	char	*line;
+	int		here_document_pipe[2];
 
-	cmd = make_cmd_list(token);
-	if (!cmd)
-		return (ENOMEM);
-	print_cmd_list(cmd);
-	err = run_here_documents(t_list *cmd);
-	if (err)
+	if (pipe(here_document_pipe) == -1)
+		return (errno);
+	line = ft_strdup("");
+	if (!line)
+		return (errno);
+	while (ft_strncmp(delimiter, line, -1))
 	{
-		ft_lstclear(&cmd, (t_del) free_cmd);
-		return (err);
+		if (write(here_document_pipe[1], line, ft_strlen(line)) == -1)
+			return (errno);
+		free(line);
+		line = readline
 	}
-	print_cmd_list(cmd);
-	ft_lstclear(&cmd, (t_del) free_cmd);
-	return (0);
 }
 
+int	run_here_documents(t_list *cmd)
+{
+
+}

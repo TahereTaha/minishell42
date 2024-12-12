@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_update_pair.c                                  :+:      :+:    :+:   */
+/*   del_key_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 15:56:41 by gasroman          #+#    #+#             */
-/*   Updated: 2024/11/27 15:56:56 by gasroman         ###   ########.fr       */
+/*   Created: 2024/12/10 06:37:59 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/10 06:40:12 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
+#include "libft.h"
 #include "minishell.h"
+#include "enviroment.h"
 
-int	env_update_pair(char **data, const char *new_data)
+void	del_key_value(t_key_value *pair)
 {
-	char	*swap;
-
-	if (new_data)
-	{
-		swap = ft_strdup(new_data);
-		if (!swap)
-			return (ENV_ERR_MEM_ALLOC);
-	}
-	free(*data);
-	*data = swap;
-	return (ENV_SUCCESS);
+	free(pair->value);
+	free(pair->key);
+	free(pair);
 }

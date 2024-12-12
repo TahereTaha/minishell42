@@ -7,8 +7,15 @@
 	- [x] sintax error 2nd
 	- [x] expanions
 - [ ] executer 1st stage
-	- [ ] preparation
+	- [x] preparation
 	- [ ] here documents
 	- [ ] piping
 	- [ ] redirection
 	- [ ] execution
+
+small todo list
+- [ ] integrate all the enviroment code
+- [ ] make the heredocuments
+- [ ] make the code to pipe and execute
+- [ ] make the redirections
+

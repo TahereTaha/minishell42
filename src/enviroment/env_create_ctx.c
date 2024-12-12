@@ -1,85 +1,88 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   env_create_ctx.c								   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gasroman <gasroman@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2024/11/27 11:06:30 by gasroman		  #+#	#+#			 */
-/*   Updated: 2024/11/27 11:30:12 by gasroman		 ###   ########.fr	   */
-/*																			*/
+/*																			  */
+/*														  :::      ::::::::   */
+/*   env_create_ctx.c                                   :+:      :+:    :+:   */
+/*													  +:+ +:+		   +:+	  */
+/*   By: gasroman <gasroman@student.42.fr>		    +#+  +:+	    +#+		  */
+/*												  +#+#+#+#+#+    +#+		  */
+/*   Created: 2024/11/27 11:06:30 by gasroman		   #+#	  #+#			  */
+/*   Updated: 2024/12/10 07:35:10 by tatahere         ###   ########.fr       */
+/*																			  */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
+#include "libft.h"
+#include "ft_list.h"
+#include "enviroment.h"
 #include "minishell.h"
 
-// Función principal para inicializar el entorno
-// int	env_create_ctx(t_env_ctx *ctx, char **env)
-// {
-// 	int					i;
-// 	char				*key;
-// 	char				*value;
-// 	char				*equal_sign;
-// 	t_key_value_pair	*new_pair;
-// 	t_key_value_pair	*current;
-
-// 	i = 0;
-// 	while (env[i])
-// 	{
-// 		equal_sign = ft_strchr(env[i], '=');
-// 		if (equal_sign)
-// 		{
-// 			*equal_sign = '\0';
-// 			key = env[i];
-// 			value = equal_sign + 1;
-// 		}
-// 		else
-// 		{
-// 			key = env[i];
-// 			value = NULL;
-// 		}
-// 		new_pair = create_pair(key, value);
-// 		if (!new_pair)
-// 			return (ENV_ERR_MEM_ALLOC);
-// 		if (equal_sign)
-// 			*equal_sign = '=';
-// 		if (!ctx->key_value_pair)
-// 			ctx->key_value_pair = new_pair;
-// 		else
-// 		{
-// 			current = ctx->key_value_pair;
-// 			while (current->next)
-// 				current = current->next;
-// 			current->next = new_pair;
-// 		}
-// 		i++;
-// 	}
-// 	return (ENV_SUCCESS);
-// }
-
-int	env_create_ctx(t_env_ctx **ctx, char **env)
+static t_key_value	*make_pair(char *str)
 {
-	int		i;
-	int		ret;
-	char	*equal_sign;
+	char		*key;
+	char		*value;
+	t_key_value	*pair;
+	size_t		start;
+	size_t		len;
 
+	len = ft_strchr(str, '=') - str;
+	key = ft_substr(str, 0, len);
+	start = len + 1;
+	len = ft_strlen(&str[start]);
+	value = ft_substr(str, start, len);
+	if (!key, !value)
+	{
+		free(key);
+		free(value);
+		return (NULL);
+	}
+	pair = make_key_value(key, value);
+	free(key);
+	free(value);
+	if (!pair)
+		return (NULL);
+	return (pair);
+}
+
+static t_list	*make_key_value_of_env(char **env)
+{
+	int			i;
+	t_list		*list;
+	t_list		*node;
+	t_key_value	*pair;
+
+	list = NULL;
 	i = 0;
-	if (!ctx || !env)
-		return (ENV_ERR_INVALID_INPUT);
-	*ctx = ft_calloc(sizeof(t_env_ctx), 1);
-	if (!*ctx)
-		return (ENV_ERR_MEM_ALLOC);
 	while (env[i])
 	{
-		equal_sign = ft_strchr(env[i], '=');
-		*equal_sign = '\0';
-		ret = env_add(*ctx, env[i], equal_sign + 1);
-		*equal_sign = '=';
-		if (ret != ENV_SUCCESS)
+		pair = make_pair(env[i]);
+		if (!pair)
+			return (ft_lstclear(&list, (t_del) del_key_value), NULL);
+		node = ft_lstnew(pair);
+		if (!node)
 		{
-			env_delete_ctx(*ctx);
-			return (ret);
+			del_key_value(pair);
+			ft_lstclear(&list, (t_del) del_key_value);
+			return (NULL);
 		}
+		ft_lstadd_back(&list, node);
 		i++;
 	}
-	return (ENV_SUCCESS);
+	return (list);
+}
+
+t_env_ctx	*env_create_ctx(char **env)
+{
+	t_env_ctx	*env_ctx;
+
+	env_ctx = ft_calloc(sizeof(t_env_ctx), 1);
+	if (!env_ctx)
+		return (NULL);
+	env_ctx->key_value = make_key_value_of_env(env);
+	if (!env_ctx->key_value && env[0])
+	{
+		free(env_ctx);
+		return (NULL);
+	}
+	return (env_ctx);
 }

@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*   exit_status_set.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/26 12:17:06 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/10 07:50:21 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/10 07:51:35 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <errno.h>
-
-#include "libft.h"
-#include "ft_list.h"
 #include "minishell.h"
 
-int		execute_cmd(t_list *token)
+void	exit_status_set(t_env_ctx *env_ctx, int new_value)
 {
-	t_list	*cmd;
-
-	cmd = make_cmd_list(token);
-	if (!cmd)
-		return (ENOMEM);
-	print_cmd_list(cmd);
-	err = run_here_documents(t_list *cmd);
-	if (err)
-	{
-		ft_lstclear(&cmd, (t_del) free_cmd);
-		return (err);
-	}
-	print_cmd_list(cmd);
-	ft_lstclear(&cmd, (t_del) free_cmd);
-	return (0);
+	env_ctx->exit_status = new_value;
 }
-
