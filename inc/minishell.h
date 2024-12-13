@@ -59,6 +59,7 @@ int			env_set(t_env_ctx *ctx, char *key, char *value);
 int			env_unset(t_env_ctx *ctx, char *key);
 
 //======  tokenizer  ======//
+here_document
 
 typedef enum e_token_kind
 {
