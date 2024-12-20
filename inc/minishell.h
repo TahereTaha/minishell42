@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/10 10:52:19 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:08:35 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,7 @@
 
 # define MINISHELL 42
 
-//======  general  ======//
-
-int		prompt(void);
-int		run_command(char *cmd);
-
-//	utils
-void	free_strs(char **strs);
-
 //======  enviroment  ======//
-
-# define ENV_SUCCESS			0
-# define ENV_ERR_NULL_CTX		1
-# define ENV_ERR_MEM_ALLOC		2
-# define ENV_ERR_KEY_EXISTS		3
-# define ENV_ERR_KEY_NOT_FOUND	4
-# define ENV_ERR_INVALID_INPUT	5
 
 typedef struct s_key_value
 {
@@ -58,6 +43,17 @@ int			env_read(t_env_ctx *ctx, char **return_ref, char *key);
 int			env_set(t_env_ctx *ctx, char *key, char *value);
 int			env_unset(t_env_ctx *ctx, char *key);
 
+char		*env_get_env(t_env_ctx *ctx);
+char		*env_get_export(t_env_ctx *ctx);
+
+//======  general  ======//
+
+int		prompt(t_env_ctx *env);
+int		run_command(char *cmd, t_env_ctx *env);
+
+//	utils
+void	free_strs(char **strs);
+
 //======  tokenizer  ======//
 
 typedef enum e_token_kind
@@ -73,7 +69,7 @@ typedef struct s_token
 	char			*str;
 }	t_token;
 
-int		tokenize(t_list **token_list_ref, char *cmd);
+int		tokenize(t_list **token_list_ref, char *cmd, t_env_ctx *env);
 
 //	first sintax error check:
 //		check unvalanced quotes
@@ -105,23 +101,32 @@ void	print_token_list(t_list *token);
 
 //	word_expansion
 
+//	this will return the string inside the quotes
 char	*get_quote_str(char *str);
 size_t	get_quote_len(char *str);
 
-char	*get_env_str(char *str);
+//	this will return the value of the enviroment variable
+char	*get_env_str(char *str, t_env_ctx *env);
 size_t	get_env_len(char *str);
 
-char	*get_char_str(char *str);
-size_t	get_char_len(char *str);
+//	this will return the string in between the above two.
+//	between get_quote and get_env
+char	*get_plain_text_str(char *str);
+size_t	get_plain_text_len(char *str);
 
-char	*get_quoted_char_str(char *str);
-size_t	get_quoted_char_len(char *str);
+//	this will include the quote characters in the plain text
+char	*get_plain_text_ext1_str(char *str);
+size_t	get_plain_text_ext1_len(char *str);
 
-int		expand_word(char **str_ref);
+//	this will include the $ characters in the plain text
+char	*get_plain_text_ext2_str(char *str);
+size_t	get_plain_text_ext2_len(char *str);
 
-int		expand_quoted_word(char **str_ref);
+int		remove_quotes(char **str_ref);
+int		expand_env(char **str_ref, t_env_ctx *env);
+int		remove_quotes_and_expand_env(char **str_ref, t_env_ctx *env);
 
-int		expand_token_list(t_list *token);
+int		remove_quote_and_expand_list(t_list *token, t_env_ctx *env);
 
 //======  executer  ======//
 
@@ -178,7 +183,6 @@ typedef enum e_minishell_errors
 {
 	SYNTAX_ERROR = 140,
 	NO_ENV_KEY,
-	ENV_KEY_TAKEN,
 }	t_minishell_errors;
 
 void	manage_error(int err);

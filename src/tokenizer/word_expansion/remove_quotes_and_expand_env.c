@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_env.c                                       :+:      :+:    :+:   */
+/*   remove_quotes_and_expand_env.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 14:30:46 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 14:34:37 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/20 14:56:41 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/20 15:32:45 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,33 @@ static size_t	get_section_len(char *str)
 
 	if (str[0] == '$')
 		len = get_env_len(str);
+	else if (str[0] == '"' || str[0] == '\'')
+		len = get_quote_len(str);
 	else
-		len = get_quoted_char_len(str);
+		len = get_plain_text_len(str);
 	return (len);
 }
 
-static char	*get_section(char *str)
+static char	*get_section(char *str, t_env_ctx *env)
 {
 	char	*section;
+	int		err;
 
+	err = 0;
 	if (str[0] == '$')
-		section = get_env_str(str);
+		section = get_env_str(str, env);
+	else if (str[0] == '"' || str[0] == '\'')
+		section = get_quote_str(str);
 	else
-		section = get_quoted_char_str(str);
+		section = get_plain_text_str(str);
 	if (!section)
 		return (NULL);
-	return (section);
+	if (str[0] == '"')
+		err = expand_env(&section, env);
+	if (!err)
+		return (section);
+	free(section);
+	return (NULL);
 }
 
 static char	*combine(char *str1, char *str2)
@@ -51,7 +62,7 @@ static char	*combine(char *str1, char *str2)
 	return (str3);
 }
 
-int	expand_quoted_word(char **str_ref)
+int	remove_quotes_and_expand_env(char **str_ref, t_env_ctx *env)
 {
 	size_t	i;
 	char	*str;
@@ -63,7 +74,7 @@ int	expand_quoted_word(char **str_ref)
 		return (ENOMEM);
 	while ((*str_ref)[i])
 	{
-		section = get_section(&(*str_ref)[i]);
+		section = get_section(&(*str_ref)[i], env);
 		if (!section)
 			return (free(str), ENOMEM);
 		str = combine(str, section);

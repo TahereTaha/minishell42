@@ -1,41 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_token_list.c                                :+:      :+:    :+:   */
+/*   remove_quotes_and_expand_list.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:59:53 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 14:00:09 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:06:01 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 #include "ft_list.h"
 #include "minishell.h"
 
-static int	expand_token(t_list *node)
+static void	debug_local(void)
+{
+	printf("====================================================");
+	printf("  here the expansion is being preformed  ");
+	printf("====================================================\n");
+}
+
+static int	expand_token(t_list *node, t_env_ctx *env)
 {
 	t_token	*token;
 	int		err;
 
 	token = node->content;
-	err = expand_word(&(token->str));
+	err = remove_quotes_and_expand_env(&(token->str), env);
 	if (err)
 		return (err);
 	return (0);
 }
 
-int		expand_token_list(t_list *token)
+
+int		remove_quote_and_expand_list(t_list *token, t_env_ctx *env)
 {
 	t_list	*node;
 	int		err;
 
+	debug_local();
 	err = 0;
 	node = token;
 	while (node)
 	{
 		if (is_word(node))
-			err = expand_token(node);
+			err = expand_token(node, env);
 		if (err)
 			return (err);
 		if (is_here_document(node))

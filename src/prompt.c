@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:38:10 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 11:04:41 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:43:45 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-int prompt(void)
+int prompt(t_env_ctx *env)
 {
 	char	*input;
 	int		err;
@@ -29,7 +29,7 @@ int prompt(void)
 			return (0);
 		if (*input)
 			add_history(input);
-		err = run_command(input);
+		err = run_command(input, env);
 		manage_error(err);
 	}
 	return (0);

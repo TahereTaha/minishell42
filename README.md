@@ -14,8 +14,20 @@
 	- [ ] execution
 
 small todo list
-- [ ] integrate all the enviroment code
-- [ ] make the heredocuments
-- [ ] make the code to pipe and execute
-- [ ] make the redirections
+	- [ ] rewrite the expansor
+		- [x] make all the simple get_str and get_len
+			- [x] quote
+			- [x] env
+			- [x] plain text
+			- [x] plain text ext1
+			- [x] plain text ext2
+		- [x] remove_quote
+		- [x] expand_env
+		- [x] remove_quotes and expand_env
+		- [x] delete anithing that is old
+		- [ ] add this to the makefile
+
+
+
+		
 

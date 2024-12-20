@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_word.c                                      :+:      :+:    :+:   */
+/*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 17:30:01 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 14:13:27 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/20 14:17:49 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/20 14:24:41 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,21 @@ static size_t	get_section_len(char *str)
 {
 	size_t	len;
 
-	if (str[0] == '\'' || str[0] == '"')
-		len = get_quote_len(str);
-	else if (str[0] == '$')
+	if (str[0] == '$')
 		len = get_env_len(str);
 	else
-		len = get_char_len(str);
+		len = get_plain_text_ext1_len(str);
 	return (len);
 }
 
-static char	*get_section(char *str)
+static char	*get_section(char *str, t_env_ctx *env)
 {
 	char	*section;
 
-	if (str[0] == '\'' || str[0] == '"')
-		section = get_quote_str(str);
-	else if (str[0] == '$')
-		section = get_env_str(str);
+	if (str[0] == '$')
+		section = get_env_str(str, env);
 	else
-		section = get_char_str(str);
+		section = get_plain_text_ext1_str(str);
 	if (!section)
 		return (NULL);
 	return (section);
@@ -55,7 +51,7 @@ static char	*combine(char *str1, char *str2)
 	return (str3);
 }
 
-int	expand_word(char **str_ref)
+int	expand_env(char **str_ref, t_env_ctx *env)
 {
 	size_t	i;
 	char	*str;
@@ -67,7 +63,7 @@ int	expand_word(char **str_ref)
 		return (ENOMEM);
 	while ((*str_ref)[i])
 	{
-		section = get_section(&(*str_ref)[i]);
+		section = get_section(&(*str_ref)[i], env);
 		if (!section)
 			return (free(str), ENOMEM);
 		str = combine(str, section);

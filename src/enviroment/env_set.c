@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:14:12 by gasroman          #+#    #+#             */
-/*   Updated: 2024/12/10 08:58:06 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:32:44 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_key_value	*add_new_key(t_env_ctx *ctx, char *key)
 		return (NULL);
 	node = ft_lstnew(pair);
 	if (!node)
-		return (del_key_value(pair), NULL)
+		return (del_key_value(pair), NULL);
 	ft_lstadd_back(&ctx->key_value, node);
 	return (pair);
 }
@@ -38,9 +38,14 @@ int	env_set(t_env_ctx *ctx, char *key, char *value)
 	t_key_value	*pair;
 	char		*cpy_value;
 
-	cpy_value = ft_strdup(value);
-	if (!cpy_value)
-		return (ENOMEM);
+	if (value)
+	{
+		cpy_value = ft_strdup(value);
+		if (!cpy_value)
+			return (ENOMEM);
+	}
+	else
+		cpy_value = NULL;
 	pair = get_key_pair(ctx, key);
 	if (!pair)
 		pair = add_new_key(ctx, key);

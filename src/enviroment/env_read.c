@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:05:32 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/12 19:56:17 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:37:47 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "libft.h"
 #include "ft_list.h"
 #include "minishell.h"
+#include "enviroment.h"
 
 // int	env_read(char **value_ref, char *key)
 // {
@@ -34,36 +35,21 @@
 // 	return (0);
 // }
 
-t_key_value	*get_key_pair(t_env_ctx *ctx, char *key)
-{
-	t_list		*node;
-	t_key_value	*current_pair;
-
-	node = ctx->key_value;
-	while (node)
-	{
-		current_pair = node->content;
-		if (ft_strncmp(key, current_pair->key, -1) == 0)
-			return (current_pair);
-		node = node->next;
-	}
-	return (NULL);
-}
-
-const int	env_read(t_env_ctx *ctx, char **return_ref, char *key)
+int	env_read(t_env_ctx *ctx, char **return_ref, char *key)
 {
 	t_key_value	*pair;
-	char		cpy_value;
+	char		*cpy_value;
 
+	*return_ref = NULL;
 	pair = get_key_pair(ctx, key);
 	if (!pair)
-		return (NO_ENV_KEY);
-	if (!pair->value)
 	{
-		*return_ref = NULL;
+		*return_ref = ft_strdup("");
 		return (0);
 	}
-	cpy_value = ft_strdup(pair->content);
+	if (pair && !pair->value)
+		return (0);
+	cpy_value = ft_strdup(pair->value);
 	if (!cpy_value)
 		return (ENOMEM);
 	*return_ref = cpy_value;

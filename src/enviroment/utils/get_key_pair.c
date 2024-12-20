@@ -1,38 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_key_value.c                                   :+:      :+:    :+:   */
+/*   get_key_pair.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 06:26:36 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 15:17:14 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/18 17:27:44 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/19 14:42:41 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include "libft.h"
 #include "minishell.h"
 #include "enviroment.h"
+#include "libft.h"
+#include "ft_list.h"
 
-t_key_value	*make_key_value(char *key, char *value)
+t_list	*get_key_node(t_env_ctx *ctx, char *key)
 {
-	char		*cpy_key;
-	char		*cpy_value;
-	t_key_value	*pair;
+	t_list	*node;
+	char	*node_key;
 
-	pair = ft_calloc(sizeof(t_key_value), 1);
-	cpy_key = ft_strdup(key);
-	cpy_value = ft_strdup(value);
-	if (!pair || !cpy_key || !cpy_value)
+	node = ctx->key_value;
+	while (node)
 	{
-		free(pair);
-		free(cpy_key);
-		free(cpy_value);
-		return (NULL);
+		node_key = ((t_key_value *) node->content)->key;
+		if (ft_strncmp(node_key, key, -1) == 0)
+			return (node);
+		node = node->next;
 	}
-	pair->key = cpy_key;
-	pair->value = cpy_value;
-	return (pair);
+	return (NULL);
 }
+
+t_key_value	*get_key_pair(t_env_ctx *ctx, char *key)
+{
+	t_list		*node;
+
+	node = get_key_node(ctx, key);
+	if (!node)
+		return (NULL);
+	return (node->content);
+}
+

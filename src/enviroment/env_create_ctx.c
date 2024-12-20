@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>		    +#+  +:+	    +#+		  */
 /*												  +#+#+#+#+#+    +#+		  */
 /*   Created: 2024/11/27 11:06:30 by gasroman		   #+#	  #+#			  */
-/*   Updated: 2024/12/10 07:35:10 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:39:08 by tatahere         ###   ########.fr       */
 /*																			  */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_key_value	*make_pair(char *str)
 	start = len + 1;
 	len = ft_strlen(&str[start]);
 	value = ft_substr(str, start, len);
-	if (!key, !value)
+	if (!key || !value)
 	{
 		free(key);
 		free(value);

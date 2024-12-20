@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:24:58 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/25 19:14:33 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:54:11 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 #include "ft_list.h"
 #include "minishell.h"
 
-int	run_command(char *cmd)
+int	run_command(char *cmd, t_env_ctx *env)
 {
 	t_list	*token;
 	int		err;
 
-	err = tokenize(&token, cmd);
+	err = tokenize(&token, cmd, env);
 	free(cmd);
 	if (err)
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char.c                                             :+:      :+:    :+:   */
+/*   plain_text.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:31:10 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/22 14:39:18 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:03:19 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-size_t	get_char_len(char *str)
+size_t	get_plain_text_len(char *str)
 {
 	size_t	i;
 
@@ -26,12 +26,12 @@ size_t	get_char_len(char *str)
 	return (i);
 }
 
-char	*get_char_str(char *word)
+char	*get_plain_text_str(char *word)
 {
 	char	*str;
 	size_t	len;
 
-	len = get_char_len(word);
+	len = get_plain_text_len(word);
 	str = ft_calloc(sizeof(char), len + 1);
 	if (!str)
 		return (NULL);

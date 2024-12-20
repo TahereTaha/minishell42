@@ -6,17 +6,26 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:52:17 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/19 19:31:24 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:09:35 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+
 #include "minishell.h"
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	int	err;
+	t_env_ctx	*env_ctx;
 
-	err = prompt();
+	(void)ac;
+	(void)av;
+	env_ctx = env_create_ctx(env);
+	if (!env_ctx)
+		manage_error(ENOMEM);
+	err = prompt(env_ctx);
+	env_delete_ctx(env_ctx);
 	if (err)
 		return (err);
 	return (42);
