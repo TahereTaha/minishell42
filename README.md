@@ -8,26 +8,30 @@
 	- [x] expanions
 - [ ] executer 1st stage
 	- [x] preparation
-	- [ ] here documents
-	- [ ] piping
+	- [ ] here documents <-- gasroman
+	- [ ] piping <-- tatahere
 	- [ ] redirection
-	- [ ] execution
+	- [ ] execution <-- tatahere
+- [x] enviroment
+- [ ] builtins
+- [ ] signal handeling
 
 small todo list
-	- [ ] rewrite the expansor
-		- [x] make all the simple get_str and get_len
-			- [x] quote
-			- [x] env
-			- [x] plain text
-			- [x] plain text ext1
-			- [x] plain text ext2
-		- [x] remove_quote
-		- [x] expand_env
-		- [x] remove_quotes and expand_env
-		- [x] delete anithing that is old
-		- [ ] add this to the makefile
+- [x] do research on the pipex
+- [x] modify the pipes front and back to be on the redirections
+- [ ] do the executor
+	- [ ] general functions
+		- [x] find if it is a builtin or a command
+		- [ ] find the path of the command
+			- [ ] manage the errors of no filename arg
+			- [ ] manage the error of no permision cmd
+			- [ ] manage the error of no file or dir
+			- [ ] manage the error of no cmd
 
-
-
-		
-
+	- [ ] execute simple commands (no pipes)
+		- [ ] execv command
+		- [ ] execv builtin
+	- [ ] execute pipes
+		- [ ] piper
+		- [ ] execv command
+		- [ ] execv builtin

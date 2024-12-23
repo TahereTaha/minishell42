@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 15:08:35 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/23 17:52:29 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,16 @@ int		remove_quote_and_expand_list(t_list *token, t_env_ctx *env);
 
 //======  executer  ======//
 
+int		execute_cmd(t_list *token, t_env_ctx *env);
+
 typedef enum e_redir_kind
 {
 	WRITE_TO_FILE,
 	APPEND_TO_FILE,
 	READ_FROM_FILE,
 	HERE_DOCUMENT,
+	PIPE_FRONT,
+	PIPE_BACK,
 }	t_redir_kind;
 
 typedef struct s_redir
@@ -149,11 +153,8 @@ typedef struct	s_cmd
 {
 	char	**argv;
 	t_list	*redir;
-	int		pipe_front;
-	int		pipe_back;
 }	t_cmd;
 
-const static char	*g_built_in_name[] = {"echo","pwd"};
 
 //	this is for converting the token list to command list
 int		make_redir(t_list *token, t_list **redir_list_ref);
@@ -165,17 +166,39 @@ void	free_cmd(t_cmd *cmd);
 //	this will free the token
 t_list	*make_cmd_list(t_list *token);
 
-void	print_cmd_list(t_list *cmd);
+void	print_cmd_list(t_list *cmd, t_env_ctx *env);
 
+//	heredoc
 int		run_here_documents(t_list *cmd);
 
+//	builtin
+
+typedef enum e_builtin_kind
+{
+	NO_BUILTIN = 0,
+	ECHO,
+	PWD,
+}	t_builtin_kind;
+
+# define BUILTIN_NUMBER 2
+
+const static char	*g_builtin_name[] = {"echo","pwd"};
+
+//	executor helper functions
+
+int		get_builtin_kind(char *cmd_name);
+char	*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env);
+void	free_strs(char **strs);
+
+//	executor (execv)
+
+int		execute_simple_builtin(t_cmd *cmd);
 int		execute_simple_cmd(t_cmd *cmd);
-int		execute_program(t_cmd *cmd);
-int		execute_builtin(t_cmd *cmd);
 
-//int		execute_pipe(t_list *cmd);
+int		execute_pipe(t_list *cmd);
 
-int		execute_cmd(t_list *token);
+int		execute_piped_builtin(t_cmd *cmd);
+int		execute_piped_cmd(t_cmd *cmd);
 
 //======  error handeling  ======//
 
@@ -183,6 +206,11 @@ typedef enum e_minishell_errors
 {
 	SYNTAX_ERROR = 140,
 	NO_ENV_KEY,
+	NO_ENV_VAL,
+	NO_CMD,
+	NO_FILE_OR_DIR,
+	NO_PERMISION_CMD,
+	NO_FILE_NAME_ARG,
 }	t_minishell_errors;
 
 void	manage_error(int err);

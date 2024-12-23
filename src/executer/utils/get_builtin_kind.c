@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_command.c                                      :+:      :+:    :+:   */
+/*   get_builtin_kind.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 10:24:58 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/23 17:49:28 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/23 14:57:56 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/23 17:54:54 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
 
 #include "libft.h"
-#include "ft_list.h"
 #include "minishell.h"
 
-int	run_command(char *cmd, t_env_ctx *env)
+int		get_builtin_kind(char *cmd_name)
 {
-	t_list	*token;
-	int		err;
+	int	i;
 
-	err = tokenize(&token, cmd, env);
-	free(cmd);
-	if (err)
+	i = 0;
+	while (i < BUILTIN_NUMBER)
 	{
-		ft_lstclear(&token, (t_del) free_token);
-		return (err);
+		if (ft_strncmp(cmd_name, g_builtin_name[i], -1) == 0)
+			return (i + 1);
+		i++;
 	}
-	err = execute_cmd(token, env);
-	ft_lstclear(&token, (t_del) free_token);
-	if (err)
-		return (err);
-	return (0);
+	return (NO_BUILTIN);
 }
+

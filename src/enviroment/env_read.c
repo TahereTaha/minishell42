@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:05:32 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 15:37:47 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:41:12 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ int	env_read(t_env_ctx *ctx, char **return_ref, char *key)
 	*return_ref = NULL;
 	pair = get_key_pair(ctx, key);
 	if (!pair)
-	{
-		*return_ref = ft_strdup("");
-		return (0);
-	}
+		return (NO_ENV_KEY);
 	if (pair && !pair->value)
-		return (0);
+		return (NO_ENV_VAL);
 	cpy_value = ft_strdup(pair->value);
 	if (!cpy_value)
 		return (ENOMEM);

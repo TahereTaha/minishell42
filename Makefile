@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/12/20 14:49:41 by tatahere         ###   ########.fr        #
+#    Updated: 2024/12/23 17:59:45 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,12 +101,17 @@ OBJS_EXPANSER	:=	plain_text.o					\
 
 OBJS			+=	$(OBJS_EXPANSER)
 
-OBJS_EXECUTER	:=	execute_cmd.o					\
-					make_argv.o						\
+OBJS_PREP		:=	make_argv.o						\
 					make_cmd.o						\
 					make_cmd_list.o					\
 					make_redir.o					\
 					print_cmd_list.o				\
+
+OBJS			+=	$(OBJS_PREP)
+
+OBJS_EXECUTER	:=	execute_cmd.o					\
+					get_builtin_kind.o				\
+					path_finder.o					\
 
 OBJS			+=	$(OBJS_EXECUTER)
 
@@ -118,10 +123,11 @@ VPATH			+=	:src/tokenizer
 VPATH			+=	:src/tokenizer/lexer
 VPATH			+=	:src/tokenizer/word_expansion
 VPATH			+=	:src/tokenizer/word_expansion/utils
+VPATH			+=	:src/tokenizer/preparation
 VPATH			+=	:src/enviroment
 VPATH			+=	:src/enviroment/utils
 VPATH			+=	:src/executer
-VPATH			+=	:src/executer/preparation
+VPATH			+=	:src/executer/utils
 
 # =========================== rules ========================================= #
 

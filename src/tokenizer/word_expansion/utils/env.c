@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:40:25 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 14:52:26 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:40:56 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ char	*get_env_str(char *word, t_env_ctx *env)
 			return (NULL);
 		err = env_read(env, &str, key);
 		free(key);
-		if (err && err != NO_ENV_KEY)
+		if (err == NO_ENV_KEY || err == NO_ENV_VAL)
+			return (ft_strdup(""));
+		else if (err)
 			return (NULL);
 		return (str);
 	}
