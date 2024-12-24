@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_builtin_kind.c                                 :+:      :+:    :+:   */
+/*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 14:57:56 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 05:46:58 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/24 05:40:53 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/24 06:34:59 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
 
 #include "libft.h"
+#include "ft_list.h"
 #include "minishell.h"
 
-int		get_builtin_kind(char *cmd_name)
+int	execute_simple_command(t_list *cmd, t_env_ctx *env)
 {
-	int	i;
+	t_cmd			*command;
+	t_builtin_kind	kind;
 
-	i = 0;
-	if (!cmd_name)
-		return (NO_BUILTIN);
-	while (i < BUILTIN_NUMBER)
-	{
-		if (ft_strncmp(cmd_name, g_builtin_name[i], -1) == 0)
-			return (i + 1);
-		i++;
-	}
-	return (NO_BUILTIN);
+	command = cmd->content;
+	kind = get_builtin_kind(command->argv[0]);
+	if (kind)
+		return (execute_simple_builtin(command, env, kind));
+	return (0);
 }
-

@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_builtin_kind.c                                 :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
+/*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 14:57:56 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 05:46:58 by tatahere         ###   ########.fr       */
+/*   Created: 2024/11/04 12:08:51 by gasroman          #+#    #+#             */
+/*   Updated: 2024/12/24 06:28:20 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
 
-#include "libft.h"
 #include "minishell.h"
 
-int		get_builtin_kind(char *cmd_name)
+int	builtin_pwd(void)
 {
-	int	i;
+	char	*dir;
 
-	i = 0;
-	if (!cmd_name)
-		return (NO_BUILTIN);
-	while (i < BUILTIN_NUMBER)
-	{
-		if (ft_strncmp(cmd_name, g_builtin_name[i], -1) == 0)
-			return (i + 1);
-		i++;
-	}
-	return (NO_BUILTIN);
+	dir = getcwd(NULL, 0);
+	if (!dir)
+		return (errno);
+	printf("%s\n", dir);
+	free(dir);
+	return (0);
 }
-

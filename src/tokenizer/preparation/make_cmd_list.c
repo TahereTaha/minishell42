@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 19:13:34 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/25 20:09:42 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 06:50:08 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_list	*make_cmd_list(t_list *token)
 	t_list	*node;
 
 	cmd = NULL;
+	if (!token)
+		return (make_node(token));
 	current_token = token;
 	while (current_token)
 	{

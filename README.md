@@ -34,7 +34,7 @@ small todo list
 
 	- [ ] execute simple commands (no pipes)
 		- [ ] execv command
-		- [ ] execv builtin
+		- [x] execv builtin
 	- [ ] execute pipes
 		- [ ] piper
 		- [ ] execv command

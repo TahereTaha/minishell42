@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 08:08:31 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/23 17:50:54 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 05:49:44 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static void	print_cmd_kind(char *cmd, t_env_ctx *env)
 		printf("this is a normal cmd\n");
 		pathname = path_finder(&err, cmd, env);
 		if (err == NO_CMD)
+			printf("no command to be executed\n");
+		if (err == NO_FOUND_CMD)
 			printf("command not found\n");
 		if (err == NO_FILE_OR_DIR)
 			printf("file or directiory not found\n");

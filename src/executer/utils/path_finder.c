@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:06:29 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 05:27:57 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 05:51:03 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*search_path(int *err_ref, char *cmd_name, t_env_ctx *env)
 		i++;
 	}
 	free_strs(paths);
-	*err_ref = NO_CMD;
+	*err_ref = NO_FOUND_CMD;
 	return (NULL);
 }
 
@@ -105,6 +105,10 @@ char		*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env)
 	int		err;
 
 	err = 0;
+	if (!cmd_name)
+		*err_ref = NO_CMD;
+	if (!cmd_name)
+		return (NULL);
 	if (is_pathname(&err, cmd_name))
 		return (ft_strdup(cmd_name));
 	if (err)

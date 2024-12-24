@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/12/23 17:59:45 by tatahere         ###   ########.fr        #
+#    Updated: 2024/12/24 06:31:41 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,8 +112,15 @@ OBJS			+=	$(OBJS_PREP)
 OBJS_EXECUTER	:=	execute_cmd.o					\
 					get_builtin_kind.o				\
 					path_finder.o					\
+					execute_simple_command.o		\
+					execute_simple_builtin.o		\
 
 OBJS			+=	$(OBJS_EXECUTER)
+
+OBJS_BUILTIN	:=	builtin_echo.o					\
+					builtin_pwd.o					\
+
+OBJS			+=	$(OBJS_BUILTIN)
 
 OBJS			:=	$(addprefix $(BIN_DIR), $(OBJS))
 DEPS			:=	$(OBJS:.o=.d)
@@ -128,6 +135,7 @@ VPATH			+=	:src/enviroment
 VPATH			+=	:src/enviroment/utils
 VPATH			+=	:src/executer
 VPATH			+=	:src/executer/utils
+VPATH			+=	:src/executer/builtin
 
 # =========================== rules ========================================= #
 

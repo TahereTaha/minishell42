@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/23 17:52:29 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 06:35:09 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,21 @@ typedef enum e_builtin_kind
 
 # define BUILTIN_NUMBER 2
 
+# include <stdlib.h>
+
+int		builtin_echo(t_cmd *cmd);
+int		builtin_pwd(void);
+
 const static char	*g_builtin_name[] = {"echo","pwd"};
+
+typedef int (*t_builtin)(t_cmd *, t_env_ctx *);
+
+const static t_builtin g_builtins[] = \
+{\
+	(t_builtin) &builtin_echo, \
+	(t_builtin) &builtin_pwd, \
+	(t_builtin) NULL \
+};
 
 //	executor helper functions
 
@@ -192,8 +206,10 @@ void	free_strs(char **strs);
 
 //	executor (execv)
 
-int		execute_simple_builtin(t_cmd *cmd);
-int		execute_simple_cmd(t_cmd *cmd);
+int		execute_simple_command(t_list *cmd, t_env_ctx *env);
+
+int		execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind);
+int		execute_simple_cmd(t_cmd *cmd, t_env_ctx *env);
 
 int		execute_pipe(t_list *cmd);
 
@@ -208,6 +224,7 @@ typedef enum e_minishell_errors
 	NO_ENV_KEY,
 	NO_ENV_VAL,
 	NO_CMD,
+	NO_FOUND_CMD,
 	NO_FILE_OR_DIR,
 	NO_PERMISION_CMD,
 	NO_FILE_NAME_ARG,

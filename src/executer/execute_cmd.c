@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/23 17:53:03 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 06:34:19 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static int	execute_simple_command(t_cmd *cmd, t_env_ctx *env)
 int		execute_cmd(t_list *token, t_env_ctx *env)
 {
 	t_list	*cmd;
+	int		err;
 
+	err = 0;
 	cmd = make_cmd_list(token);
 	if (!cmd)
 		return (ENOMEM);
@@ -42,8 +44,11 @@ int		execute_cmd(t_list *token, t_env_ctx *env)
 //		ft_lstclear(&cmd, (t_del) free_cmd);
 //		return (err);
 //	}
-//	print_cmd_list(cmd);
+	if (ft_lstsize(cmd) == 1)
+		err = execute_simple_command(cmd, env);
+//	else
+//		err = execute_pipe(cmd);
 	ft_lstclear(&cmd, (t_del) free_cmd);
-	return (0);
+	return (err);
 }
 
