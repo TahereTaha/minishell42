@@ -6,11 +6,12 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:52:17 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 15:09:35 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/23 18:42:23 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
+#include <unistd.h>
 
 #include "minishell.h"
 

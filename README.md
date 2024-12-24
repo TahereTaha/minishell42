@@ -20,13 +20,17 @@ small todo list
 - [x] do research on the pipex
 - [x] modify the pipes front and back to be on the redirections
 - [ ] do the executor
-	- [ ] general functions
+	- [x] general functions
 		- [x] find if it is a builtin or a command
-		- [ ] find the path of the command
-			- [ ] manage the errors of no filename arg
-			- [ ] manage the error of no permision cmd
-			- [ ] manage the error of no file or dir
-			- [ ] manage the error of no cmd
+		- [x] find the path of the command
+			- [x] manage errors
+				- [x] manage the errors of no filename arg
+				- [x] manage the error of no permision cmd
+				- [x] manage the error of no file or dir
+				- [x] manage the error of no cmd
+			- [x] manage outputs
+				- [x] relative paths (./ls or /dev/ls or ls)
+				- [x] commands throught the path env
 
 	- [ ] execute simple commands (no pipes)
 		- [ ] execv command

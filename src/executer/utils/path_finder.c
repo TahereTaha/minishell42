@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:06:29 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/23 18:04:28 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 05:27:57 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ static char	*search_path(int *err_ref, char *cmd_name, t_env_ctx *env)
 
 int			is_pathname(int *err_ref, char *cmd_name)
 {
-	if (cmd_name[0] == '/')
+	if (cmd_name[0] == '.' && cmd_name[1] == '\0')
+		*err_ref = NO_FILE_NAME_ARG;
+	if (*err_ref)
+		return (0);
+	if (access(cmd_name, X_OK) == 0)
 		return (1);
-	if (cmd_name[0] == '.' )
-	{
-		if (cmd_name[1] == '/')
-			return (1);
-		else
-			*err_ref = NO_FILE_NAME_ARG;
-	}
+	*err_ref = NO_FILE_OR_DIR;
+	if (access(cmd_name, F_OK) == 0)
+		*err_ref = NO_PERMISION_CMD;
 	return (0);
 }
 
