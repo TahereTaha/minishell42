@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/12/24 06:31:41 by tatahere         ###   ########.fr        #
+#    Updated: 2024/12/24 10:40:37 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ OBJS_ENV		:=	exit_status_set.o				\
 					get_key_pair.o					\
 					make_key_value.o				\
 					update_key_value.o				\
+					env_get_env.o					\
 
 OBJS			+=	$(OBJS_ENV)
 
@@ -113,6 +114,7 @@ OBJS_EXECUTER	:=	execute_cmd.o					\
 					get_builtin_kind.o				\
 					path_finder.o					\
 					execute_simple_command.o		\
+					execute_command.o				\
 					execute_simple_builtin.o		\
 
 OBJS			+=	$(OBJS_EXECUTER)

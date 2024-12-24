@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:06:29 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 05:51:03 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 11:04:02 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char	*search_path(int *err_ref, char *cmd_name, t_env_ctx *env)
 	{
 		pathname = pathname_executable(err_ref, paths[i], cmd_name);
 		if (*err_ref)
-			return (free_strs(paths), NULL);
+			return (free_strs(paths), free(pathname), NULL);
 		if (pathname)
 			return (free_strs(paths), pathname);
 		i++;
@@ -91,13 +91,12 @@ int			is_pathname(int *err_ref, char *cmd_name)
 		*err_ref = NO_FILE_NAME_ARG;
 	if (*err_ref)
 		return (0);
-	if (access(cmd_name, X_OK) == 0)
+	if (cmd_name[0] == '/')
 		return (1);
-	*err_ref = NO_FILE_OR_DIR;
-	if (access(cmd_name, F_OK) == 0)
-		*err_ref = NO_PERMISION_CMD;
 	return (0);
 }
+
+#include <stdio.h>
 
 char		*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env)
 {
@@ -105,6 +104,7 @@ char		*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env)
 	int		err;
 
 	err = 0;
+	printf("pathname is: %s\n", cmd_name);
 	if (!cmd_name)
 		*err_ref = NO_CMD;
 	if (!cmd_name)
@@ -117,7 +117,7 @@ char		*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env)
 		return (NULL);
 	}
 	pathname = search_path(&err, cmd_name, env);
-	if (err)
+	if (!pathname)
 		*err_ref = err;
 	return (pathname);
 }

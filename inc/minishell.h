@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 06:35:09 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 10:43:06 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int			env_read(t_env_ctx *ctx, char **return_ref, char *key);
 int			env_set(t_env_ctx *ctx, char *key, char *value);
 int			env_unset(t_env_ctx *ctx, char *key);
 
-char		*env_get_env(t_env_ctx *ctx);
-char		*env_get_export(t_env_ctx *ctx);
+char		**env_get_env(t_env_ctx *ctx);
+char		**env_get_export(t_env_ctx *ctx);
 
 //======  general  ======//
 
@@ -206,15 +206,15 @@ void	free_strs(char **strs);
 
 //	executor (execv)
 
+# include <sys/types.h>
+# include <unistd.h>
+
 int		execute_simple_command(t_list *cmd, t_env_ctx *env);
-
-int		execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind);
-int		execute_simple_cmd(t_cmd *cmd, t_env_ctx *env);
-
 int		execute_pipe(t_list *cmd);
 
-int		execute_piped_builtin(t_cmd *cmd);
-int		execute_piped_cmd(t_cmd *cmd);
+int		execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind);
+int		execute_piped_builtin(t_cmd *cmd, t_env_ctx *env);
+int		execute_command(t_cmd *cmd, t_env_ctx *env, pid_t child);
 
 //======  error handeling  ======//
 

@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:42:37 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/25 19:37:01 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 07:58:18 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	free_strs(char **strs)
 {
 	size_t	i;
 
+	if (!strs)
+		return ;
 	i = 0;
 	while (strs[i])
 	{

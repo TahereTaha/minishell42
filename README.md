@@ -34,8 +34,12 @@ small todo list
 
 	- [ ] execute simple commands (no pipes)
 		- [ ] execv command
+			- [x] recive the only the coresponding input no more memory elsewere
+			- [x] whait for the child to finish
+			- [x] find the program and exeve it
+				- [x] manage the diferent error from pathfinder
+				- [x] add to the enviroment module the env get env:
 		- [x] execv builtin
 	- [ ] execute pipes
 		- [ ] piper
-		- [ ] execv command
 		- [ ] execv builtin

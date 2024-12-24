@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:38:10 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 14:43:45 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/24 11:08:18 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int prompt(t_env_ctx *env)
 
 	while (42)
 	{
-		input = readline("minishell: ");
+		input = readline("prompt: ");
 		if (!input)
 			return (0);
 		if (*input)
