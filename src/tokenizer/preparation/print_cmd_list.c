@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 08:08:31 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 05:49:44 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/31 18:20:05 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	print_cmd_kind(char *cmd, t_env_ctx *env)
 
 }
 
-static void	print_cmd(t_cmd *cmd, t_env_ctx *env)
+void	print_cmd(t_cmd *cmd, t_env_ctx *env)
 {
 	printf("\t\t\tthis is a cmd\n");
 	print_cmd_kind(cmd->argv[0], env);

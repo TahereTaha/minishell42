@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 21:08:58 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/05 21:26:30 by gasroman         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:20:08 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,16 @@ int	handle_redirection(t_list *redir)
 			fd = open(content->str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (content->kind == APPEND_TO_FILE)
 			fd = open(content->str, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		else if (content->kind == HERE_DOCUMENT)
+			fd = content->fd;
 		if (fd == -1)
-			return (perror("Error opening file"), ERROR_CODE);
-		if (content->kind == READ_FROM_FILE)
+			return (errno);
+		if (content->kind == READ_FROM_FILE || content->kind == HERE_DOCUMENT)
 			dup2(fd, STDIN_FILENO);
 		else
 			dup2(fd, STDOUT_FILENO);
 		close(fd);
 		node = node->next;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

@@ -32,8 +32,8 @@ small todo list
 				- [x] relative paths (./ls or /dev/ls or ls)
 				- [x] commands throught the path env
 
-	- [ ] execute simple commands (no pipes)
-		- [ ] execv command
+	- [x] execute simple commands (no pipes)
+		- [x] execv command
 			- [x] recive the only the coresponding input no more memory elsewere
 			- [x] whait for the child to finish
 			- [x] find the program and exeve it
@@ -42,4 +42,4 @@ small todo list
 		- [x] execv builtin
 	- [ ] execute pipes
 		- [ ] piper
-		- [ ] execv builtin
+		- [x] execv builtin

@@ -6,9 +6,11 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:33:10 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 06:51:13 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/31 19:26:56 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 #include "libft.h"
 #include "minishell.h"
@@ -17,6 +19,8 @@ static int	check_flag(char *flag)
 {
 	int	i;
 
+	if (!flag)
+		return (0);
 	if (flag[0] != '-')
 		return (0);
 	i = 1;
@@ -48,12 +52,12 @@ int	builtin_echo(t_cmd *cmd)
 	i = get_index_first_no_flag(cmd->argv);
 	while (cmd->argv[i])
 	{
-		ft_putstr_fd(cmd->argv[i], 0);
+		ft_putstr_fd(cmd->argv[i], 2);
 		if (cmd->argv[i + 1])
-			ft_putstr_fd(" ", 0);
+			ft_putstr_fd(" ", 2);
 		i++;
 	}
 	if (!check_flag(cmd->argv[1]))
-		ft_putstr_fd("\n", 0);
+		ft_putstr_fd("\n", 2);
 	return (0);
 }

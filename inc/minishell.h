@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 10:43:06 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:22:20 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,12 +209,26 @@ void	free_strs(char **strs);
 # include <sys/types.h>
 # include <unistd.h>
 
+//	utils
+
+typedef struct s_struct_pipe{
+	int	front[2];
+	int	back[2];
+}	t_struct_pipe;
+
+void	init_pipe(t_struct_pipe *pipe);
+void	print_cmd(t_cmd *cmd, t_env_ctx *env);
+void	*ft_lstpurge(t_list **lst, void (*del)(void*), size_t index);
+void	move_pipe_back(t_struct_pipe *pipe);
+void	close_pipe(int *pipe);
+void	hook_to_pipe(int *pipe_front, int *pipe_back);
+
 int		execute_simple_command(t_list *cmd, t_env_ctx *env);
-int		execute_pipe(t_list *cmd);
+int		execute_pipe(t_list *cmd, t_env_ctx *env);
 
 int		execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind);
-int		execute_piped_builtin(t_cmd *cmd, t_env_ctx *env);
-int		execute_command(t_cmd *cmd, t_env_ctx *env, pid_t child);
+int		execute_piped_builtin(t_cmd *cmd, t_env_ctx *env, int kind);
+int		execute_command(t_cmd *cmd, t_env_ctx *env);
 
 //======  error handeling  ======//
 

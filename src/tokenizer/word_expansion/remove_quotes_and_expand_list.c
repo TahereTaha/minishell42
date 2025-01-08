@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:59:53 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 15:06:01 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/31 18:12:17 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include "ft_list.h"
 #include "minishell.h"
 
+/*
 static void	debug_local(void)
 {
 	printf("====================================================");
 	printf("  here the expansion is being preformed  ");
 	printf("====================================================\n");
 }
-
+*/
 static int	expand_token(t_list *node, t_env_ctx *env)
 {
 	t_token	*token;
@@ -40,7 +41,7 @@ int		remove_quote_and_expand_list(t_list *token, t_env_ctx *env)
 	t_list	*node;
 	int		err;
 
-	debug_local();
+//	debug_local();
 	err = 0;
 	node = token;
 	while (node)

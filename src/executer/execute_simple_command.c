@@ -6,11 +6,12 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 05:40:53 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 08:05:59 by tatahere         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:44:42 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -18,6 +19,16 @@
 #include "libft.h"
 #include "ft_list.h"
 #include "minishell.h"
+
+static void	wait_child(t_env_ctx *env, pid_t child)
+{
+	int	exit_status;
+
+	waitpid(child, &exit_status, 0);
+	if (WIFEXITED(exit_status))
+		exit_status = WEXITSTATUS(exit_status);
+	exit_status_set(env, exit_status);
+}
 
 int	execute_simple_command(t_list *cmd, t_env_ctx *env)
 {
@@ -36,6 +47,9 @@ int	execute_simple_command(t_list *cmd, t_env_ctx *env)
 	{
 		ft_lstclear(&(cmd->next), (t_del) free_cmd);
 		free(cmd);
+		execute_command(command, env);
 	}
-	return (execute_command(command, env, child));
+	else
+		wait_child(env, child);
+	return (0);
 }

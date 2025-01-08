@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2024/12/24 10:40:37 by tatahere         ###   ########.fr        #
+#    Updated: 2025/01/08 16:38:52 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,7 +115,12 @@ OBJS_EXECUTER	:=	execute_cmd.o					\
 					path_finder.o					\
 					execute_simple_command.o		\
 					execute_command.o				\
+					execute_pipe.o					\
 					execute_simple_builtin.o		\
+					execute_piped_builtin.o			\
+					redirections.o					\
+					list_ext.o						\
+					pipe_utils.o					\
 
 OBJS			+=	$(OBJS_EXECUTER)
 

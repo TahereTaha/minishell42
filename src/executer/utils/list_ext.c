@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   list_ext.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/31 18:11:09 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/31 14:28:49 by tatahere          #+#    #+#             */
+/*   Updated: 2024/12/31 17:59:38 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
+#include "libft.h"
 #include "ft_list.h"
 #include "minishell.h"
 
-#include <stdio.h>
-
-int	tokenize(t_list **token_list_ref, char *cmd, t_env_ctx *env)
+void	*ft_lstpurge(t_list **lst, void (*del)(void*), size_t index)
 {
-	int		err;
+	void	*content;
 
-	err = check_sintax_error_1st(cmd);
-	if (err)
-		return (err);
-	err = lexer(token_list_ref, cmd);
-	if (err)
-		return (err);
-//	print_token_list(*token_list_ref);
-	err = check_sintax_error_2nd(*token_list_ref);
-	if (err)
-		return (err);
-	err = remove_quote_and_expand_list(*token_list_ref, env);
-	if (err)
-		return (err);
-//	print_token_list(*token_list_ref);
-	return (0);
+	if (!lst || !*lst || !del)
+		return (NULL);
+	content = NULL;
+	if ((*lst)->next)
+		content = ft_lstpurge(&((*lst)->next), del, index - 1);
+	if (index == 0)
+	{
+		content = (*lst)->content;
+		free(*lst);
+	}
+	else
+		ft_lstdelone(*lst, del);
+	return (content);
 }

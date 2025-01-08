@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   execute_piped_builtin.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 20:09:06 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/31 18:11:09 by tatahere         ###   ########.fr       */
+/*   Created: 2024/12/24 11:43:27 by tatahere          #+#    #+#             */
+/*   Updated: 2025/01/08 18:21:29 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
+#include "libft.h"
 #include "ft_list.h"
 #include "minishell.h"
 
-#include <stdio.h>
-
-int	tokenize(t_list **token_list_ref, char *cmd, t_env_ctx *env)
+int		execute_piped_builtin(t_cmd *cmd, t_env_ctx *env, int kind)
 {
-	int		err;
+	int	err;
 
-	err = check_sintax_error_1st(cmd);
-	if (err)
-		return (err);
-	err = lexer(token_list_ref, cmd);
-	if (err)
-		return (err);
-//	print_token_list(*token_list_ref);
-	err = check_sintax_error_2nd(*token_list_ref);
-	if (err)
-		return (err);
-	err = remove_quote_and_expand_list(*token_list_ref, env);
-	if (err)
-		return (err);
-//	print_token_list(*token_list_ref);
-	return (0);
+	err = g_builtins[kind - 1](cmd, env);
+	env_delete_ctx(env);
+	free_cmd(cmd);
+	manage_error(err);
+	exit(0);
 }
