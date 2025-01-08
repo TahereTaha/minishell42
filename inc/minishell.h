@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/08 16:22:20 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:46:31 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,10 @@ void	*ft_lstpurge(t_list **lst, void (*del)(void*), size_t index);
 void	move_pipe_back(t_struct_pipe *pipe);
 void	close_pipe(int *pipe);
 void	hook_to_pipe(int *pipe_front, int *pipe_back);
+
+int		handle_redirection(t_list *redir);
+void	save_in_out(int *in_out);
+void	reset_in_out(int *in_out);
 
 int		execute_simple_command(t_list *cmd, t_env_ctx *env);
 int		execute_pipe(t_list *cmd, t_env_ctx *env);

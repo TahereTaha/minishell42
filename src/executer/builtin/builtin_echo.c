@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:33:10 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/31 19:26:56 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:00:31 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int	builtin_echo(t_cmd *cmd)
 	i = get_index_first_no_flag(cmd->argv);
 	while (cmd->argv[i])
 	{
-		ft_putstr_fd(cmd->argv[i], 2);
+		ft_putstr_fd(cmd->argv[i], 1);
 		if (cmd->argv[i + 1])
-			ft_putstr_fd(" ", 2);
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (!check_flag(cmd->argv[1]))
-		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("\n", 1);
 	return (0);
 }

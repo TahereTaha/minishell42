@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:06:29 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 11:04:02 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:48:46 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char		*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env)
 	int		err;
 
 	err = 0;
-	printf("pathname is: %s\n", cmd_name);
+//	printf("pathname is: %s\n", cmd_name);
 	if (!cmd_name)
 		*err_ref = NO_CMD;
 	if (!cmd_name)

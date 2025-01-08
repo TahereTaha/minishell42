@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/08 16:06:03 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:01:36 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int		execute_cmd(t_list *token, t_env_ctx *env)
 //		ft_lstclear(&cmd, (t_del) free_cmd);
 //		return (err);
 //	}
-	printf("this\n");
 	if (ft_lstsize(cmd) == 1)
 		err = execute_simple_command(cmd, env);
 	else

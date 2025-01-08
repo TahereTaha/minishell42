@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 07:03:03 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/08 18:21:47 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:28:48 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		execute_command(t_cmd *cmd, t_env_ctx *env)
 	int		err;
 
 	err = 0;
+	handle_redirection(cmd->redir);
 	argv = cmd->argv;
 	cmd->argv = NULL;
 	free_cmd(cmd);

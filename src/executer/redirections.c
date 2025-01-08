@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 21:08:58 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/08 18:20:08 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:01:23 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	handle_redirection(t_list *redir)
 		if (content->kind == READ_FROM_FILE || content->kind == HERE_DOCUMENT)
 			dup2(fd, STDIN_FILENO);
 		else
+		{
 			dup2(fd, STDOUT_FILENO);
+		}
 		close(fd);
 		node = node->next;
 	}

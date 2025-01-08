@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:44:22 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/25 20:06:33 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:18:47 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static t_list	*make_one_redir(t_list *token)
 	redir = ft_calloc(sizeof(t_redir), 1);
 	if (!redir)
 		return (NULL);
-	if (ft_strncmp(">", ((t_token *)token->content)->str, -1))
+	if (ft_strncmp(">", ((t_token *)token->content)->str, -1) == 0)
 		redir->kind = WRITE_TO_FILE;
-	else if (ft_strncmp(">>", ((t_token *)token->content)->str, -1))
+	else if (ft_strncmp(">>", ((t_token *)token->content)->str, -1) == 0)
 		redir->kind = APPEND_TO_FILE;
-	else if (ft_strncmp("<", ((t_token *)token->content)->str, -1))
+	else if (ft_strncmp("<", ((t_token *)token->content)->str, -1) == 0)
 		redir->kind = READ_FROM_FILE;
-	else if (ft_strncmp("<<", ((t_token *)token->content)->str, -1))
+	else if (ft_strncmp("<<", ((t_token *)token->content)->str, -1) == 0)
 		redir->kind = HERE_DOCUMENT;
 	redir->fd = -1;
 	token = token->next;
