@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_get_env.c                                      :+:      :+:    :+:   */
+/*   env_get_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 18:04:13 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 19:58:30 by tatahere         ###   ########.fr       */
+/*   Created: 2025/01/09 20:08:41 by tatahere          #+#    #+#             */
+/*   Updated: 2025/01/09 21:23:19 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,13 @@
 #include "libft.h"
 #include "ft_list.h"
 
-static int	env_len(t_list *key_pair)
-{
-	size_t		i;
-	t_list		*node;
-	t_key_value	*pair;
-
-	i = 0;
-	node = key_pair;
-	while (node)
-	{
-		pair = node->content;
-		if (pair->value)
-			i++;
-		node = node->next;
-	}
-	return (i);
-}
-
 static char	*get_str(t_key_value *pair)
 {
 	char	*tmp;
 	char	*env_str;
 
+	if (!pair->value)
+		return (ft_strdup(pair->key));
 	tmp = ft_strjoin(pair->key, "=");
 	if (!tmp)
 		return (NULL);
@@ -51,7 +35,7 @@ static char	*get_str(t_key_value *pair)
 	return (env_str);
 }
 
-char	**env_get_env(t_env_ctx *ctx)
+char	**env_get_export(t_env_ctx *ctx)
 {
 	char		**envp;
 	t_list		*node;
@@ -59,7 +43,7 @@ char	**env_get_env(t_env_ctx *ctx)
 	t_key_value	*pair;
 
 	node = ctx->key_value;
-	i = env_len(ctx->key_value);
+	i = ft_lstsize(ctx->key_value);
 	envp = ft_calloc(sizeof(char *), i + 1);
 	i = 0;
 	if (!envp)
@@ -67,13 +51,10 @@ char	**env_get_env(t_env_ctx *ctx)
 	while (node)
 	{
 		pair = node->content;
-		if (pair->value)
-		{
-			envp[i] = get_str(pair);
-			if (!envp[i])
-				return (free_strs(envp), NULL);
-			i++;
-		}
+		envp[i] = get_str(pair);
+		if (!envp[i])
+			return (free_strs(envp), NULL);
+		i++;
 		node = node->next;
 	}
 	return (envp);

@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/08 18:46:31 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/09 21:18:13 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,14 +180,15 @@ typedef enum e_builtin_kind
 	PWD,
 }	t_builtin_kind;
 
-# define BUILTIN_NUMBER 2
+# define BUILTIN_NUMBER 3
 
 # include <stdlib.h>
 
 int		builtin_echo(t_cmd *cmd);
 int		builtin_pwd(void);
+int		builtin_export(t_cmd *cmd, t_env_ctx *env);
 
-const static char	*g_builtin_name[] = {"echo","pwd"};
+const static char	*g_builtin_name[] = {"echo","pwd", "export"};
 
 typedef int (*t_builtin)(t_cmd *, t_env_ctx *);
 
@@ -195,6 +196,7 @@ const static t_builtin g_builtins[] = \
 {\
 	(t_builtin) &builtin_echo, \
 	(t_builtin) &builtin_pwd, \
+	(t_builtin) &builtin_export, \
 	(t_builtin) NULL \
 };
 
@@ -241,6 +243,7 @@ typedef enum e_minishell_errors
 	SYNTAX_ERROR = 140,
 	NO_ENV_KEY,
 	NO_ENV_VAL,
+	NO_VALID_KEY,
 	NO_CMD,
 	NO_FOUND_CMD,
 	NO_FILE_OR_DIR,

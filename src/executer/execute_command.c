@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 07:03:03 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 17:22:23 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:59:34 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	execve_command(char **argv, t_env_ctx *env)
 
 	err = 0;
 	envp = env_get_env(env);
-	if (!env)
+	if (!envp)
 	{
 		free_strs(argv);
 		return (ENOMEM);
