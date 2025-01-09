@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:41:30 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/31 18:18:58 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:22:50 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,10 @@ static void	manage_custom_error(int	err)
 		manage_pathfinder_error(err);
 }
 
-static void	manage_system_error(int err)
+static void	manage_system_error()
 {
 	perror("minishell");
-	if (err == ENOMEM)
-		exit(1);
-	exit(42);
+	exit(1);
 }
 
 void	manage_error(int err)
@@ -65,6 +63,6 @@ void	manage_error(int err)
 	if (!err)
 		return ;
 	if (err < SYNTAX_ERROR)	//	if it is on errno
-		manage_system_error(err);
+		manage_system_error();
 	manage_custom_error(err);
 }
