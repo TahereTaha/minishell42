@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2025/01/09 21:17:00 by tatahere         ###   ########.fr        #
+#    Updated: 2025/01/10 17:13:12 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,7 +127,10 @@ OBJS			+=	$(OBJS_EXECUTER)
 
 OBJS_BUILTIN	:=	builtin_echo.o					\
 					builtin_pwd.o					\
-					builtin_export.o					\
+					builtin_export.o				\
+					builtin_unset.o					\
+					builtin_env.o					\
+					builtin_exit.o					\
 
 OBJS			+=	$(OBJS_BUILTIN)
 

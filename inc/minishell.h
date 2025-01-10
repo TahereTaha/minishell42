@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 21:18:13 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:45:33 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,15 +180,19 @@ typedef enum e_builtin_kind
 	PWD,
 }	t_builtin_kind;
 
-# define BUILTIN_NUMBER 3
+# define BUILTIN_NUMBER 6
 
 # include <stdlib.h>
 
 int		builtin_echo(t_cmd *cmd);
 int		builtin_pwd(void);
 int		builtin_export(t_cmd *cmd, t_env_ctx *env);
+int		builtin_unset(t_cmd *cmd, t_env_ctx *env);
+int		builtin_env(t_cmd *cmd, t_env_ctx *env);
+int		builtin_exit(t_cmd *cmd, t_env_ctx *env);
 
-const static char	*g_builtin_name[] = {"echo","pwd", "export"};
+const static char	*g_builtin_name[] = {"echo","pwd", "export", \
+	"unset", "env", "exit"};
 
 typedef int (*t_builtin)(t_cmd *, t_env_ctx *);
 
@@ -197,6 +201,9 @@ const static t_builtin g_builtins[] = \
 	(t_builtin) &builtin_echo, \
 	(t_builtin) &builtin_pwd, \
 	(t_builtin) &builtin_export, \
+	(t_builtin) &builtin_unset, \
+	(t_builtin) &builtin_env, \
+	(t_builtin) &builtin_exit, \
 	(t_builtin) NULL \
 };
 
