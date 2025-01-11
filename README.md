@@ -8,38 +8,33 @@
 	- [x] expanions
 - [ ] executer 1st stage
 	- [x] preparation
-	- [ ] here documents <-- gasroman
-	- [ ] piping <-- tatahere
-	- [ ] redirection
-	- [ ] execution <-- tatahere
+	- [x] here documents <-- gasroman
+	- [x] piping <-- tatahere
+	- [x] redirection
+	- [x] execution <-- tatahere
 - [x] enviroment
-- [ ] builtins
+- [x] builtins
 - [ ] signal handeling
 
 small todo list
-- [x] do research on the pipex
-- [x] modify the pipes front and back to be on the redirections
-- [ ] do the executor
-	- [x] general functions
-		- [x] find if it is a builtin or a command
-		- [x] find the path of the command
-			- [x] manage errors
-				- [x] manage the errors of no filename arg
-				- [x] manage the error of no permision cmd
-				- [x] manage the error of no file or dir
-				- [x] manage the error of no cmd
-			- [x] manage outputs
-				- [x] relative paths (./ls or /dev/ls or ls)
-				- [x] commands throught the path env
-
-	- [x] execute simple commands (no pipes)
-		- [x] execv command
-			- [x] recive the only the coresponding input no more memory elsewere
-			- [x] whait for the child to finish
-			- [x] find the program and exeve it
-				- [x] manage the diferent error from pathfinder
-				- [x] add to the enviroment module the env get env:
-		- [x] execv builtin
-	- [ ] execute pipes
-		- [ ] piper
-		- [x] execv builtin
+- [ ] make all the cases for the signals.
+	- [ ] in all cases.
+		- [ ] all signals recibed will write themself to the global variabl.
+	- [ ] ^C.
+		- [ ] interactive (you are inputing to the minishell not cat or grep.).
+			- [ ] stop the readline input.
+		- [ ] non interactive (waitng for stoping commands to finish).
+			- [ ] ignore it.
+	- [ ] ^\
+		- [ ] interactive (you are inputing to the minishell not cat or grep.).
+			- [] ignore it.
+		- [ ] non interactive (waitng for stoping commands to finish).
+			- [ ] ignore it.
+	- [ ] after all readline interprets the g_signal and do
+		- [ ] make the exit status 130 and continue to do the next command.
+				on the prompt
+		- [ ] make the exit status 130 and stop the heredoc from continuing.
+	- [ ] after the wait_all_children interpret the g_signal and do
+		- [ ] make the exit status 130 for ^c or 131 ^\
+	
+- [ ] 

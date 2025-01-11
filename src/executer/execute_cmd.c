@@ -6,13 +6,14 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 11:00:51 by gasroman         ###   ########.fr       */
+/*   Updated: 2025/01/11 22:22:16 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <signal.h>
 
 #include "libft.h"
 #include "ft_list.h"
@@ -44,12 +45,14 @@ int	execute_cmd(t_list *token, t_env_ctx *env)
 		ft_lstclear(&cmd, (t_del) free_cmd);
 		return (err);
 	}
+	signal(SIGINT, handle_non_interactive);
+	signal(SIGQUIT, handle_non_interactive);
 	if (ft_lstsize(cmd) == 1)
 		err = execute_simple_command(cmd, env);
 	else
-	{
 		err = execute_pipe(cmd, env);
-	}
+	signal(SIGINT, handle_interactive);
+	signal(SIGQUIT, SIG_IGN);
 	ft_lstclear(&cmd, (t_del) free_cmd);
 	return (err);
 }

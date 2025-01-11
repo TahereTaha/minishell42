@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:51:08 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 12:28:44 by gasroman         ###   ########.fr       */
+/*   Updated: 2025/01/11 22:25:20 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@
 #include "ft_list.h"
 #include "minishell.h"
 
-static void	get_child_status(t_env_ctx *env)
-{
-	if (WIFEXITED(env->exit_status))
-		env->exit_status = WEXITSTATUS(env->exit_status);
-	else
-		handle_signaled(&env->exit_status, WTERMSIG(env->exit_status));
-}
-
 static void	wait_all_child(t_env_ctx *env, pid_t *child, size_t size)
 {
 	int		exit_status;
@@ -42,6 +34,11 @@ static void	wait_all_child(t_env_ctx *env, pid_t *child, size_t size)
 	}
 	if (WIFEXITED(exit_status))
 		exit_status = WEXITSTATUS(exit_status);
+	if (g_signal_num)
+	{
+		exit_status = 128 + g_signal_num;
+		g_signal_num = 0;
+	}
 	exit_status_set(env, exit_status);
 }
 
@@ -73,8 +70,6 @@ pid_t	fork_child_proses
 	}
 	if (child != 0)
 		return (child);
-	signal(SIGINT, exit);
-	signal(SIGQUIT, exit);
 	command = ft_lstpurge(&cmd, (t_del) free_cmd, index);
 	hook_to_pipe((int *)&pipe->front, (int *)&pipe->back);
 	execute_pipe_segment(command, env);
@@ -106,6 +101,5 @@ int	execute_pipe(t_list *cmd, t_env_ctx *env)
 	close_pipe((int *)&pipe_s.back);
 	wait_all_child(env, child_list, len);
 	free(child_list);
-	get_child_status(env);
 	return (0);
 }

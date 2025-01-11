@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:51:49 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/11 16:49:23 by gasroman         ###   ########.fr       */
+/*   Updated: 2025/01/11 22:03:27 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	read_heredoc(char *delimiter, int *pipe, int expand, t_env_ctx *env)
 
 	while (1)
 	{
-		signal(SIGINT, handle_siginth);
+//		signal(SIGINT, handle_siginth);
 		line = readline("> ");
 		if (!line || !ft_strncmp(delimiter, line, -1))
 		{
@@ -46,7 +46,7 @@ static int	read_heredoc(char *delimiter, int *pipe, int expand, t_env_ctx *env)
 		free(line);
 	}
 	close_pipe(pipe);
-	signal(SIGINT, SIG_DFL);
+//	signal(SIGINT, SIG_DFL);
 	exit(EXIT_SUCCESS);
 }
 
@@ -111,13 +111,14 @@ static t_redir	*find_heredoc_redir(t_list *cmd_list)
 
 int	run_here_doc(t_list *cmd, t_env_ctx *env)
 {
+	return (0);
 	t_list	*node;
 	t_redir	*content;
 	int		expand;
 
 	node = cmd;
-	signal(SIGINT, break_it);
-	signal(SIGQUIT, SIG_IGN);
+//	signal(SIGINT, break_it);
+//	signal(SIGQUIT, SIG_IGN);
 	while (node)
 	{
 		content = find_heredoc_redir(node);

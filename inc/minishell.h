@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 12:30:16 by gasroman         ###   ########.fr       */
+/*   Updated: 2025/01/11 21:56:50 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 
 # include "ft_list.h"
 
-# define MINISHELL 42
+
+extern int	g_signal_num;
+
+void	handle_interactive(int signal_num);
+void	handle_non_interactive(int signal_num);
 
 //======  enviroment  ======//
 

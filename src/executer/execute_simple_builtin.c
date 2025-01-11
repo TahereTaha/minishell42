@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 05:54:48 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 17:29:23 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/11 22:17:52 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind)
 	if (err)
 		return (0);
 	err = g_builtins[kind - 1](cmd, env);
+	if (!err)
+		exit_status_set(env, 0);
 	reset_in_out(in_out);
 	return (err);
 }

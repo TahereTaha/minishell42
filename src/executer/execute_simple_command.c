@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 05:40:53 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/31 17:44:42 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/11 22:25:46 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ static void	wait_child(t_env_ctx *env, pid_t child)
 	waitpid(child, &exit_status, 0);
 	if (WIFEXITED(exit_status))
 		exit_status = WEXITSTATUS(exit_status);
+	if (g_signal_num)
+	{
+		exit_status = 128 + g_signal_num;
+		g_signal_num = 0;
+	}
 	exit_status_set(env, exit_status);
 }
 

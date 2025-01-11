@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 10:51:56 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/11 17:18:18 by gasroman         ###   ########.fr       */
+/*   Updated: 2025/01/11 22:19:49 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,57 +16,27 @@
 #include <readline/readline.h>
 #include "libft.h"
 
-void	handle_siginth(int sig)
+int	g_signal_num = 0;
+
+void	persist_signal_num(int signal_num)
 {
-	if (sig == SIGINT)
+	g_signal_num = signal_num;
+}
+
+void	handle_interactive(int signal_num)
+{
+	persist_signal_num(signal_num);
+	if (signal_num == SIGINT)
 	{
-		printf(">\n");
-		exit(130);
-	}
-}
-
-int	get_break_it(int flag, int value)
-{
-	static int	_break;
-
-	if (flag == 1)
-		_break = value;
-	return (_break);
-}
-
-void	break_it(int signal)
-{
-	if (signal == SIGINT)
-		get_break_it(1, 1);
-}
-
-int	get_status(int flag, int value)
-{
-	static int	var;
-
-	if (flag == 1)
-		var = value;
-	// printf("var = %d\n", var);
-	return (var);
-}
-
-void	_sigint(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
+//		rl_replace_line("", 0);
 		rl_redisplay();
-		get_status(1, 130);
+		rl_done = 1;
 	}
 }
 
-void	handle_signaled(int *status, int signal)
+void	handle_non_interactive(int signal_num)
 {
-	if (signal == 2)
-		printf("^C\n");
-	else if (signal == 3)
-		printf("Quit: (core dumped)\n");
-	*status = 128 + signal;
+	persist_signal_num(signal_num);
+	printf("\n");
 }
+
