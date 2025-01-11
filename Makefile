@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2025/01/10 17:13:12 by tatahere         ###   ########.fr        #
+#    Updated: 2025/01/11 11:22:49 by gasroman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,6 +122,8 @@ OBJS_EXECUTER	:=	execute_cmd.o					\
 					redirections.o					\
 					list_ext.o						\
 					pipe_utils.o					\
+					here_document.o					\
+					mem_free.o						\
 
 OBJS			+=	$(OBJS_EXECUTER)
 
@@ -133,6 +135,10 @@ OBJS_BUILTIN	:=	builtin_echo.o					\
 					builtin_exit.o					\
 
 OBJS			+=	$(OBJS_BUILTIN)
+
+OBJS_SIGNAL		:=	signals.o						\
+
+OBJS			+=	$(OBJS_SIGNAL)
 
 OBJS			:=	$(addprefix $(BIN_DIR), $(OBJS))
 DEPS			:=	$(OBJS:.o=.d)
@@ -148,6 +154,8 @@ VPATH			+=	:src/enviroment/utils
 VPATH			+=	:src/executer
 VPATH			+=	:src/executer/utils
 VPATH			+=	:src/executer/builtin
+VPATH			+=	:src/executer/here_document
+VPATH			+=	:src/signals
 
 # =========================== rules ========================================= #
 

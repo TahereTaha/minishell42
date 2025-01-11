@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_utils.c                                   :+:      :+:    :+:   */
+/*   mem_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/03 17:55:56 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/03 17:56:30 by gasroman         ###   ########.fr       */
+/*   Created: 2025/01/11 11:11:48 by gasroman          #+#    #+#             */
+/*   Updated: 2025/01/11 11:23:54 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_list.h"
+#include <stdlib.h>
 
-void	close_pipe(int *pipe)
+int	double_free(char **ptr, char **_ptr)
 {
-	close(pipe[0]);
-	pipe[0] = -1;
-	close(pipe[1]);
-	pipe[1] = -1;
+	if (ptr && *ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
+	if (_ptr && *_ptr)
+	{
+		free(*_ptr);
+		*_ptr = NULL;
+	}
+	return (EXIT_SUCCESS);
 }

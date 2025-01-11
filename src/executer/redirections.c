@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 21:08:58 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/08 20:01:23 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:00:02 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <readline/readline.h>
+#include <stdio.h>
 
 #include "libft.h"
 #include "ft_list.h"
@@ -44,11 +45,12 @@ int	handle_redirection(t_list *redir)
 		if (content->kind == READ_FROM_FILE || content->kind == HERE_DOCUMENT)
 			dup2(fd, STDIN_FILENO);
 		else
-		{
 			dup2(fd, STDOUT_FILENO);
-		}
 		close(fd);
 		node = node->next;
 	}
+	// int term = 0;
+	// if (dup2(term, 0) == -1)
+	// 	printf("estoy malito\n");
 	return (0);
 }

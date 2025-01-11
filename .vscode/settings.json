@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "minishell.h": "c",
+        "ft_list.h": "c"
+    }
+}

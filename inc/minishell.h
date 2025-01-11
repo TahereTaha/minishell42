@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/10 17:45:33 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/11 12:30:16 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_list	*make_cmd_list(t_list *token);
 void	print_cmd_list(t_list *cmd, t_env_ctx *env);
 
 //	heredoc
-int		run_here_documents(t_list *cmd);
+int	run_here_doc(t_list *redir, t_env_ctx *env);
 
 //	builtin
 
@@ -242,6 +242,15 @@ int		execute_pipe(t_list *cmd, t_env_ctx *env);
 int		execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind);
 int		execute_piped_builtin(t_cmd *cmd, t_env_ctx *env, int kind);
 int		execute_command(t_cmd *cmd, t_env_ctx *env);
+
+int		double_free(char **ptr, char **_ptr);
+
+void	handle_siginth(int sig);
+int		get_break_it(int flag, int value);
+void	break_it(int signal);
+void	_sigint(int sig);
+int		get_status(int flag, int value);
+void	handle_signaled(int *status, int signal);
 
 //======  error handeling  ======//
 
