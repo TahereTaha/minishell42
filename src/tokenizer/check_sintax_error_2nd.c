@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:23:20 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/21 21:03:28 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 19:48:10 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	check_sintax_error_2nd(t_list *token)
 		return (SYNTAX_ERROR);
 	while (node->next)
 	{
-		if ((is_pipe(node) || is_redir(node)) && !is_word(node->next))
+		if (is_redir(node) && !is_word(node->next))
+			return (SYNTAX_ERROR);
+		if (is_pipe(node) && !(is_word(node->next) || is_redir(node->next)))
 			return (SYNTAX_ERROR);
 		node = node->next;
 	}

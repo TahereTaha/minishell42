@@ -16,11 +16,8 @@
 - [x] builtins
 - [x] signal handeling
 - [ ] trobleshoot the last details
-	- [ ] fix the heredoc
+	- [x] fix the heredoc
 	- [ ] add error handeling to all the dup and dup2
 	- [ ] make the cd builtin
 	- [ ] pass the norm on the last files
 
-small todo list
-- [ ] go throug all the list of list to get to the heredoc redirects.
-- [ ] make the heredoc function.

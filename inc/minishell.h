@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 18:21:22 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:55:45 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ typedef struct	s_cmd
 	char	**argv;
 	t_list	*redir;
 }	t_cmd;
-
 
 //	this is for converting the token list to command list
 int		make_redir(t_list *token, t_list **redir_list_ref);

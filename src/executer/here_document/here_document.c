@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:51:49 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/12 18:14:12 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 19:38:47 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,127 +22,93 @@
 #include "ft_list.h"
 #include "minishell.h"
 
-static int	read_heredoc(char *delimiter, int *pipe, int expand, t_env_ctx *env)
+static int	manage_signal(t_env_ctx *env)
 {
-	char	*line;
+	exit_status_set(env, 128 + g_signal_num);
+	g_signal_num = 0;
+	return (HEREDOC_INTERUPT);
+}
 
+static int	fill_heredoc(int fd, \
+		t_env_ctx *env, char *delimiter, int has_quotes)
+{
+	int		err;
+	char	*input;
+
+	err = 0;
 	while (1)
 	{
-//		signal(SIGINT, handle_siginth);
-		line = readline("> ");
-		if (!line || !ft_strncmp(delimiter, line, -1))
-		{
-			double_free(&line, NULL);
-			break ;
-		}
-		if (expand == 0)
-		{
-			expand_env(&line, env);
-			if (!line)
-				break ;
-		}
-		ft_putstr_fd(line, pipe[1]);
-		ft_putstr_fd("\n", pipe[1]);
-		free(line);
-	}
-	close_pipe(pipe);
-//	signal(SIGINT, SIG_DFL);
-	exit(EXIT_SUCCESS);
-}
-
-static int	open_heredoc(t_redir *redir, int expand, t_env_ctx *env)
-{
-	pid_t	heredoc;
-	int		heredoc_pipe[2];
-	int		status;
-
-	if (pipe(heredoc_pipe) == -1)
-		return (errno);
-	heredoc = fork();
-	if (heredoc == -1)
-		return (errno);
-	if (heredoc == 0)
-	{
-		if (heredoc_pipe[0] > 0)
-			close(heredoc_pipe[0]);
-		read_heredoc(redir->str, heredoc_pipe, expand, env);
-	}
-	if (waitpid(heredoc, &status, 0) == -1)
-		return (close(heredoc_pipe[0]), errno);
-	redir->fd = heredoc_pipe[0];
-	return (EXIT_SUCCESS);
-}
-
-static int	quote_search(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '"' || str[i] == '\'')
-			return (1);
-		i++;
+		input = readline(">");
+		if (g_signal_num)
+			return (manage_signal(env));
+		if (!input)
+			return (ENOMEM);
+		if (!ft_strncmp(delimiter, input, -1))
+			return (0);
+		if (!has_quotes)
+			err = expand_env(&input, env);
+		if (err)
+			return (err);
+		ft_putstr_fd(input, fd);
+		free(input);
+		ft_putstr_fd("\n", fd);
 	}
 	return (0);
 }
 
-static t_redir	*find_heredoc_redir(t_list *cmd_list)
+int	run_heredoc(t_redir *redir, t_env_ctx *env)
 {
-	t_cmd	*cmd;
-	t_list	*redir_list;
-	t_redir	*redir;
+	int	heredoc_pipe[2];
+	int	expand_env;
+	int	err;
 
-	while (cmd_list)
+	if (pipe(heredoc_pipe))
+		return (errno);
+	expand_env = 0;
+	if (ft_strchr(redir->str, '"') || ft_strchr(redir->str, '\''))
+		expand_env = 1;
+	err = remove_quotes(&redir->str);
+	if (err)
+		return (err);
+	err = fill_heredoc(heredoc_pipe[1], env, redir->str, expand_env);
+	if (err)
+		return (err);
+	close(heredoc_pipe[1]);
+	redir->fd = heredoc_pipe[0];
+	return (0);
+}
+
+int	run_heredoc_cmd(t_cmd *cmd, t_env_ctx *env)
+{
+	t_list	*node;
+	int		err;
+
+	err = 0;
+	node = cmd->redir;
+	while (node)
 	{
-		cmd = (t_cmd *)cmd_list->content;
-		redir_list = cmd->redir;
-		while (redir_list)
-		{
-			redir = (t_redir *)redir_list->content;
-			if (redir->kind == HERE_DOCUMENT)
-				return (redir);
-			redir_list = redir_list->next;
-		}
-		cmd_list = cmd_list->next;
+		if (((t_redir *)node->content)->kind == HERE_DOCUMENT)
+			err = run_heredoc(node->content, env);
+		if (err)
+			return (err);
+		node = node->next;
 	}
-	return (NULL);
+	return (0);
 }
 
 int	run_heredoc_cmd_list(t_list *cmd, t_env_ctx *env)
 {
 	t_list	*node;
-	t_redir	*content;
-	int		expand;
+	int		err;
 
 	node = cmd;
-//	signal(SIGINT, break_it);
-//	signal(SIGQUIT, SIG_IGN);
+	err = 0;
 	while (node)
 	{
-		content = find_heredoc_redir(node);
-		if (content)
-		{
-			expand = quote_search(content->str);
-			if (open_heredoc(content, expand, env) == -1)
-			{
-				ft_putstr_fd("Error: failed to open heredoc\n", STDERR_FILENO);
-				return (EXIT_FAILURE);
-			}
-		}
+		err = run_heredoc_cmd(node->content, env);
+		if (err)
+			return (err);
 		node = node->next;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
-
-// int	heredoc(t_minishell *mini, t_basic *current)
-// {
-// 	(void)mini;
-// 	if (current && current->data.token->type == R_HER)
-// 	{
-// 		if (dup2(current->data.token->token_content.redir_here[0], 0) == ERROR)
-// 			return (error_msg(PERROR, 1, "Dup2"));
-// 		close(current->data.token->token_content.redir_here[0]);
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
