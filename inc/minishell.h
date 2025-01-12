@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 18:55:45 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 21:10:42 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ typedef struct	s_cmd
 	t_list	*redir;
 }	t_cmd;
 
+
 //	this is for converting the token list to command list
 int		make_redir(t_list *token, t_list **redir_list_ref);
 void	free_redir(t_redir *redir);
@@ -183,7 +184,7 @@ typedef enum e_builtin_kind
 	PWD,
 }	t_builtin_kind;
 
-# define BUILTIN_NUMBER 6
+# define BUILTIN_NUMBER 7
 
 # include <stdlib.h>
 
@@ -193,9 +194,11 @@ int		builtin_export(t_cmd *cmd, t_env_ctx *env);
 int		builtin_unset(t_cmd *cmd, t_env_ctx *env);
 int		builtin_env(t_cmd *cmd, t_env_ctx *env);
 int		builtin_exit(t_cmd *cmd, t_env_ctx *env);
+int		builtin_cd(t_cmd *cmd, t_env_ctx *env);
+
 
 const static char	*g_builtin_name[] = {"echo","pwd", "export", \
-	"unset", "env", "exit"};
+	"unset", "env", "exit", "cd"};
 
 typedef int (*t_builtin)(t_cmd *, t_env_ctx *);
 
@@ -207,6 +210,7 @@ const static t_builtin g_builtins[] = \
 	(t_builtin) &builtin_unset, \
 	(t_builtin) &builtin_env, \
 	(t_builtin) &builtin_exit, \
+	(t_builtin) &builtin_cd, \
 	(t_builtin) NULL \
 };
 

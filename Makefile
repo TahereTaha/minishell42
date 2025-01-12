@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2025/01/12 17:47:23 by tatahere         ###   ########.fr        #
+#    Updated: 2025/01/12 21:07:51 by gasroman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ OBJS_ENV		:=	exit_status_set.o				\
 					make_key_value.o				\
 					update_key_value.o				\
 					env_get_env.o					\
-					env_get_export.o					\
+					env_get_export.o				\
 
 OBJS			+=	$(OBJS_ENV)
 
@@ -134,6 +134,7 @@ OBJS_BUILTIN	:=	builtin_echo.o					\
 					builtin_unset.o					\
 					builtin_env.o					\
 					builtin_exit.o					\
+					builtin_cd.o					\
 
 OBJS			+=	$(OBJS_BUILTIN)
 
