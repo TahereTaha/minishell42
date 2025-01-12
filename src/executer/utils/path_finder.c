@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:06:29 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/08 19:48:46 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:33:11 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static char	*search_path(int *err_ref, char *cmd_name, t_env_ctx *env)
 	return (NULL);
 }
 
-int			is_pathname(int *err_ref, char *cmd_name)
+int	is_pathname(int *err_ref, char *cmd_name)
 {
 	if (cmd_name[0] == '.' && cmd_name[1] == '\0')
 		*err_ref = NO_FILE_NAME_ARG;
@@ -96,15 +96,13 @@ int			is_pathname(int *err_ref, char *cmd_name)
 	return (0);
 }
 
-#include <stdio.h>
-
-char		*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env)
+//	printf("pathname is: %s\n", cmd_name);
+char	*path_finder(int *err_ref, char *cmd_name, t_env_ctx *env)
 {
 	char	*pathname;
 	int		err;
 
 	err = 0;
-//	printf("pathname is: %s\n", cmd_name);
 	if (!cmd_name)
 		*err_ref = NO_CMD;
 	if (!cmd_name)

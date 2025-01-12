@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:47:03 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/08 18:36:57 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:30:59 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,12 @@ void	close_pipe(int *pipe)
 	{
 		close(pipe[0]);
 		pipe[0] = -1;
-	}	
+	}
 	if (pipe[1] != -1)
 	{
 		close(pipe[1]);
 		pipe[1] = -1;
-	}	
-}
-
-void	save_in_out(int *in_out)
-{
-	in_out[0] = dup(0);
-	in_out[1] = dup(1);
-}
-
-void	reset_in_out(int *in_out)
-{
-	dup2(in_out[0], 0);
-	dup2(in_out[1], 1);
+	}
 }
 
 void	init_pipe(t_struct_pipe *pipe)
@@ -66,5 +54,3 @@ void	hook_to_pipe(int *pipe_front, int *pipe_back)
 	close_pipe(pipe_back);
 	close_pipe(pipe_front);
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 10:41:30 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 17:22:50 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:10:22 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	manage_pathfinder_error(int err)
 	}
 }
 
-static void	manage_custom_error(int	err)
+static void	manage_custom_error(int err)
 {
 	if (err == SYNTAX_ERROR)
 		ft_putstr_fd("syntax error\n", 2);
@@ -52,7 +52,7 @@ static void	manage_custom_error(int	err)
 		manage_pathfinder_error(err);
 }
 
-static void	manage_system_error()
+static void	manage_system_error(void)
 {
 	perror("minishell");
 	exit(1);
@@ -62,7 +62,7 @@ void	manage_error(int err)
 {
 	if (!err)
 		return ;
-	if (err < SYNTAX_ERROR)	//	if it is on errno
+	if (err < SYNTAX_ERROR)
 		manage_system_error();
 	manage_custom_error(err);
 }

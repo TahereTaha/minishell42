@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:59:53 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/31 18:12:17 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:14:44 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,11 @@ static int	expand_token(t_list *node, t_env_ctx *env)
 	return (0);
 }
 
-
-int		remove_quote_and_expand_list(t_list *token, t_env_ctx *env)
+int	remove_quote_and_expand_list(t_list *token, t_env_ctx *env)
 {
 	t_list	*node;
 	int		err;
 
-//	debug_local();
 	err = 0;
 	node = token;
 	while (node)

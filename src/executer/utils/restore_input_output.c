@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   restore_input_output.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 16:51:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 17:24:25 by tatahere         ###   ########.fr       */
+/*   Created: 2025/01/12 17:29:30 by tatahere          #+#    #+#             */
+/*   Updated: 2025/01/12 17:30:02 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <errno.h>
 
 #include "libft.h"
 #include "minishell.h"
 
-int	builtin_unset(t_cmd *cmd, t_env_ctx *env)
+void	save_in_out(int *in_out)
 {
-	int	i;
+	in_out[0] = dup(0);
+	in_out[1] = dup(1);
+}
 
-	i = 1;
-	while (cmd->argv[i])
-	{
-		env_unset(env, cmd->argv[i]);
-		i++;
-	}
-	return (0);
+void	reset_in_out(int *in_out)
+{
+	dup2(in_out[0], 0);
+	dup2(in_out[1], 1);
 }

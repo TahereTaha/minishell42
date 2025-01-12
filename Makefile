@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2025/01/11 11:22:49 by gasroman         ###   ########.fr        #
+#    Updated: 2025/01/12 17:47:23 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,6 +122,7 @@ OBJS_EXECUTER	:=	execute_cmd.o					\
 					redirections.o					\
 					list_ext.o						\
 					pipe_utils.o					\
+					restore_input_output.o			\
 					here_document.o					\
 					mem_free.o						\
 

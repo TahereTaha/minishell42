@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:27:44 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/19 14:42:41 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:52:09 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,3 @@ t_key_value	*get_key_pair(t_env_ctx *ctx, char *key)
 		return (NULL);
 	return (node->content);
 }
-

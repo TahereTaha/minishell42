@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 20:12:17 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 21:41:28 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:22:48 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	valid_key(char *key)
 	int	i;
 
 	i = 0;
-	while(key[i] && key[i] != '=')
+	while (key[i] && key[i] != '=')
 	{
 		if (key[i] != '_' && !ft_isalnum(key[i]))
 			return (0);
@@ -103,7 +103,7 @@ int	builtin_export(t_cmd *cmd, t_env_ctx *env)
 	i = 1;
 	err = 0;
 	one_incorect_key = 0;
-	while(cmd->argv[i])
+	while (cmd->argv[i])
 	{
 		err = export_variable(cmd->argv[i], env);
 		if (err && err != NO_VALID_KEY)

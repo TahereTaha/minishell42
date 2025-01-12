@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 05:54:48 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 22:17:52 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:34:41 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	local_manage_error(t_env_ctx *env)
 	perror("minishell");
 }
 
-int		execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind)
+int	execute_simple_builtin(t_cmd *cmd, t_env_ctx *env, int kind)
 {
 	int	err;
 	int	in_out[2];

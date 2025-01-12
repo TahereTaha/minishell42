@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:22:00 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/19 20:46:16 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:13:42 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_unvalanced_quotes(char *str)
 {
-	int i;
+	int	i;
 	int	in_quotes;
 
 	i = 0;

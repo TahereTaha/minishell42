@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:51:08 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 22:25:20 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:49:49 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ static void	wait_all_child(t_env_ctx *env, pid_t *child, size_t size)
 	exit_status_set(env, exit_status);
 }
 
+//	print_cmd(command, env);
 //	this will not return.
 static void	execute_pipe_segment(t_cmd *command, t_env_ctx *env)
 {
 	t_builtin_kind	kind;
 
 	kind = get_builtin_kind(command->argv[0]);
-//	print_cmd(command, env);
 	if (kind)
 		execute_piped_builtin(command, env, kind);
 	else
 		execute_command(command, env);
 }
 
-pid_t	fork_child_proses
-(t_list *cmd, t_env_ctx *env, size_t index, t_struct_pipe *pipe)
+pid_t	fork_child_proses(t_list *cmd, \
+		t_env_ctx *env, size_t index, t_struct_pipe *pipe)
 {
 	pid_t	child;
 	t_cmd	*command;

@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 10:51:56 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/11 22:19:49 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 16:49:40 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	handle_interactive(int signal_num)
 	if (signal_num == SIGINT)
 	{
 //		rl_replace_line("", 0);
-		rl_redisplay();
+//		rl_redisplay();
 		rl_done = 1;
 	}
 }

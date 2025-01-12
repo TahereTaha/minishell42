@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:52:17 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/23 18:42:23 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:06:29 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	main(int ac, char **av, char **env)
 {
-	int	err;
+	int			err;
 	t_env_ctx	*env_ctx;
 
 	(void)ac;

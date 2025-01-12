@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:57:56 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/24 05:46:58 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:31:49 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-int		get_builtin_kind(char *cmd_name)
+int	get_builtin_kind(char *cmd_name)
 {
 	int	i;
 
@@ -30,4 +30,3 @@ int		get_builtin_kind(char *cmd_name)
 	}
 	return (NO_BUILTIN);
 }
-

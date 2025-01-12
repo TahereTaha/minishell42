@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 22:22:16 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:48:12 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	execute_simple_command(t_cmd *cmd, t_env_ctx *env)
 }
 */
 
+//	print_cmd_list(cmd, env);
 int	execute_cmd(t_list *token, t_env_ctx *env)
 {
 	t_list	*cmd;
@@ -38,7 +39,6 @@ int	execute_cmd(t_list *token, t_env_ctx *env)
 	cmd = make_cmd_list(token);
 	if (!cmd)
 		return (ENOMEM);
-//	print_cmd_list(cmd, env);
 	err = run_here_doc(cmd, env);
 	if (err)
 	{
@@ -56,4 +56,3 @@ int	execute_cmd(t_list *token, t_env_ctx *env)
 	ft_lstclear(&cmd, (t_del) free_cmd);
 	return (err);
 }
-

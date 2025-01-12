@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:38:10 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 22:20:27 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:11:50 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int	event(void)
 	return (0);
 }
 
-int prompt(t_env_ctx *env)
+int	prompt(t_env_ctx *env)
 {
 	char	*input;
 	int		err;
-	
+
 	rl_event_hook = event;
 	signal(SIGINT, handle_interactive);
 	signal(SIGQUIT, SIG_IGN);
@@ -52,4 +52,3 @@ int prompt(t_env_ctx *env)
 	signal(SIGQUIT, SIG_DFL);
 	return (get_status(0, env->exit_status));
 }
-

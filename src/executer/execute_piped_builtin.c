@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:43:27 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 17:11:28 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:37:57 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "ft_list.h"
 #include "minishell.h"
 
-int		execute_piped_builtin(t_cmd *cmd, t_env_ctx *env, int kind)
+int	execute_piped_builtin(t_cmd *cmd, t_env_ctx *env, int kind)
 {
 	int	err;
 

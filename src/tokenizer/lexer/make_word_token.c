@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 06:38:31 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 10:16:27 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:16:09 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int	double_quote_len(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] != '"')
@@ -33,7 +33,7 @@ static int	double_quote_len(char *str)
 
 static int	singel_quote_len(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] != '\'')
@@ -50,7 +50,7 @@ static t_list	*make_node(char *cmd, size_t len)
 	t_list	*node;
 	t_token	*token;
 	char	*str;
-	
+
 	str = ft_substr(cmd, 0, len);
 	if (!str)
 		return (NULL);

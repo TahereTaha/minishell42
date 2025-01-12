@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:04:13 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 19:58:30 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:51:27 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,3 @@ char	**env_get_env(t_env_ctx *ctx)
 	}
 	return (envp);
 }
-

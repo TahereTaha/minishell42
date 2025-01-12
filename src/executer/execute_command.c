@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 07:03:03 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/09 19:59:34 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:38:37 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	execve_command(char **argv, t_env_ctx *env)
 	return (0);
 }
 
-int		execute_command(t_cmd *cmd, t_env_ctx *env)
+int	execute_command(t_cmd *cmd, t_env_ctx *env)
 {
 	char	**argv;
 	int		err;

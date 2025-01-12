@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 08:08:31 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/31 18:20:05 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:19:53 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft.h"
 #include "ft_list.h"
 #include "minishell.h"
-
+/*
 static void	print_argv(char **argv)
 {
 	size_t	i;
@@ -123,3 +123,5 @@ void	print_cmd_list(t_list *cmd, t_env_ctx *env)
 		node = node->next;
 	}
 }
+
+*/

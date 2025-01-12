@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 06:34:08 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/10 06:37:40 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:51:53 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ int	update_key_value(t_key_value *pair, char *new_value)
 	pair->value = cpy_value;
 	return (0);
 }
-

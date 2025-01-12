@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 09:15:53 by tatahere          #+#    #+#             */
-/*   Updated: 2024/11/20 10:17:00 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:16:46 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static t_list	*make_node(void)
 	return (node);
 }
 
-int		make_pipe_token(t_list **node_ref)
+int	make_pipe_token(t_list **node_ref)
 {
 	*node_ref = make_node();
 	if (!*node_ref)
