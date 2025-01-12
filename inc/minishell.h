@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/11 21:56:50 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:13:10 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ t_list	*make_cmd_list(t_list *token);
 void	print_cmd_list(t_list *cmd, t_env_ctx *env);
 
 //	heredoc
-int	run_here_doc(t_list *redir, t_env_ctx *env);
+int	run_heredoc_cmd_list(t_list *cmd, t_env_ctx *env);
 
 //	builtin
 

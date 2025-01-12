@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:12:56 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 17:48:12 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:13:39 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	execute_cmd(t_list *token, t_env_ctx *env)
 	cmd = make_cmd_list(token);
 	if (!cmd)
 		return (ENOMEM);
-	err = run_here_doc(cmd, env);
+	err = run_heredoc_cmd_list(cmd, env);
 	if (err)
 	{
 		ft_lstclear(&cmd, (t_del) free_cmd);

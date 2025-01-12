@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:51:49 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/11 22:03:27 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:14:12 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,8 @@ static t_redir	*find_heredoc_redir(t_list *cmd_list)
 	return (NULL);
 }
 
-int	run_here_doc(t_list *cmd, t_env_ctx *env)
+int	run_heredoc_cmd_list(t_list *cmd, t_env_ctx *env)
 {
-	return (0);
 	t_list	*node;
 	t_redir	*content;
 	int		expand;
