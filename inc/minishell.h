@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 18:13:10 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:21:22 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,7 @@ typedef enum e_minishell_errors
 	NO_FILE_OR_DIR,
 	NO_PERMISION_CMD,
 	NO_FILE_NAME_ARG,
+	HEREDOC_INTERUPT,
 }	t_minishell_errors;
 
 void	manage_error(int err);
