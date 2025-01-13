@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
+/*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:47:03 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/13 10:31:21 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:11:13 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	move_pipe_back(t_struct_pipe *pipe)
 	pipe->front[1] = -1;
 }
 
-int		hook_to_pipe(int *pipe_front, int *pipe_back)
+int	hook_to_pipe(int *pipe_front, int *pipe_back)
 {
 	int	fd;
 

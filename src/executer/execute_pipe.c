@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:51:08 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/13 13:32:59 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:10:44 by gasroman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ pid_t	fork_child_proses(t_list *cmd, \
 {
 	pid_t	child;
 	t_cmd	*command;
-	int	err;
+	int		err;
 
 	child = fork();
 	if (child < 0)
