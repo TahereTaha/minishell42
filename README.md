@@ -17,7 +17,8 @@
 - [x] signal handeling
 - [ ] trobleshoot the last details
 	- [x] fix the heredoc
-	- [ ] add error handeling to all the dup and dup2
-	- [ ] make the cd builtin
-	- [ ] pass the norm on the last files
+	- [x] add error handeling to all the dup and dup2
+	- [x] make the cd builtin
+	- [x] pass the norm on the last files
+	- [x] make sure nothing is wrong
 

@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 21:08:58 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/12 17:46:28 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:33:06 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	handle_redirection(t_list *redir)
 	t_list	*node;
 	t_redir	*content;
 	int		fd;
+	int		err;
 
 	node = redir;
 	while (node)
@@ -56,9 +57,11 @@ int	handle_redirection(t_list *redir)
 		if (fd == -1)
 			return (errno);
 		if (content->kind == READ_FROM_FILE || content->kind == HERE_DOCUMENT)
-			dup2(fd, STDIN_FILENO);
+			err = dup2(fd, STDIN_FILENO);
 		else
-			dup2(fd, STDOUT_FILENO);
+			err = dup2(fd, STDOUT_FILENO);
+		if (err == -1)
+			return (errno);
 		close(fd);
 		node = node->next;
 	}

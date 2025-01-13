@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:47:03 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 17:30:59 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:31:21 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,20 @@ void	move_pipe_back(t_struct_pipe *pipe)
 	pipe->front[1] = -1;
 }
 
-void	hook_to_pipe(int *pipe_front, int *pipe_back)
+int		hook_to_pipe(int *pipe_front, int *pipe_back)
 {
+	int	fd;
+
+	fd = 0;
 	if (pipe_front[0] != -1)
-		dup2(pipe_front[1], 1);
+		fd = dup2(pipe_front[1], 1);
+	if (fd == -1)
+		return (errno);
 	if (pipe_back[1] != -1)
-		dup2(pipe_back[0], 0);
+		fd = dup2(pipe_back[0], 0);
+	if (fd == -1)
+		return (errno);
 	close_pipe(pipe_back);
 	close_pipe(pipe_front);
+	return (0);
 }

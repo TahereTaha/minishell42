@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 21:51:15 by gasroman         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:28:02 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # include "ft_list.h"
 
-extern int	g_signal_num;
+extern int				g_signal_num;
 
 void		handle_interactive(int signal_num);
 void		handle_non_interactive(int signal_num);
@@ -161,7 +161,6 @@ typedef struct s_cmd
 	t_list	*redir;
 }	t_cmd;
 
-
 //	this is for converting the token list to command list
 int			make_redir(t_list *token, t_list **redir_list_ref);
 void		free_redir(t_redir *redir);
@@ -196,20 +195,20 @@ int			builtin_env(t_cmd *cmd, t_env_ctx *env);
 int			builtin_exit(t_cmd *cmd, t_env_ctx *env);
 int			builtin_cd(t_cmd *cmd, t_env_ctx *env);
 
-const static char	*g_builtin_name[] = {"echo","pwd", "export", \
+const static char		*g_builtin_name[] = {"echo", "pwd", "export", \
 	"unset", "env", "exit", "cd"};
 
-typedef int (*t_builtin)(t_cmd *, t_env_ctx *);
+typedef int				(*t_builtin)(t_cmd *, t_env_ctx *);
 
-const static t_builtin g_builtins[] = \
-{\
-	(t_builtin) &builtin_echo, \
-	(t_builtin) &builtin_pwd, \
-	(t_builtin) &builtin_export, \
-	(t_builtin) &builtin_unset, \
-	(t_builtin) &builtin_env, \
-	(t_builtin) &builtin_exit, \
-	(t_builtin) &builtin_cd, \
+const static t_builtin	g_builtins[] = \
+	{\
+	(t_builtin) builtin_echo, \
+	(t_builtin) builtin_pwd, \
+	(t_builtin) builtin_export, \
+	(t_builtin) builtin_unset, \
+	(t_builtin) builtin_env, \
+	(t_builtin) builtin_exit, \
+	(t_builtin) builtin_cd, \
 	(t_builtin) NULL \
 };
 
@@ -232,11 +231,11 @@ void		print_cmd(t_cmd *cmd, t_env_ctx *env);
 void		*ft_lstpurge(t_list **lst, void (*del)(void*), size_t index);
 void		move_pipe_back(t_struct_pipe *pipe);
 void		close_pipe(int *pipe);
-void		hook_to_pipe(int *pipe_front, int *pipe_back);
+int			hook_to_pipe(int *pipe_front, int *pipe_back);
 
 int			handle_redirection(t_list *redir);
-void		save_in_out(int *in_out);
-void		reset_in_out(int *in_out);
+int			save_in_out(int *in_out);
+int			reset_in_out(int *in_out);
 
 int			execute_simple_command(t_list *cmd, t_env_ctx *env);
 int			execute_pipe(t_list *cmd, t_env_ctx *env);

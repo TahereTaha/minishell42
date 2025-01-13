@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:29:30 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 17:30:02 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:25:36 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,22 @@
 #include "libft.h"
 #include "minishell.h"
 
-void	save_in_out(int *in_out)
+int	save_in_out(int *in_out)
 {
 	in_out[0] = dup(0);
+	if (in_out[0] == -1)
+		return (errno);
 	in_out[1] = dup(1);
+	if (in_out[1] == -1)
+		return (errno);
+	return (0);
 }
 
-void	reset_in_out(int *in_out)
+int	reset_in_out(int *in_out)
 {
-	dup2(in_out[0], 0);
-	dup2(in_out[1], 1);
+	if (dup2(in_out[0], 0) == -1)
+		return (errno);
+	if (dup2(in_out[1], 1) == -1)
+		return (errno);
+	return (0);
 }

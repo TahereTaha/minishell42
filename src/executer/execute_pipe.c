@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:51:08 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 17:49:49 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:30:10 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ pid_t	fork_child_proses(t_list *cmd, \
 {
 	pid_t	child;
 	t_cmd	*command;
+	int	err;
 
 	child = fork();
 	if (child < 0)
@@ -71,7 +72,9 @@ pid_t	fork_child_proses(t_list *cmd, \
 	if (child != 0)
 		return (child);
 	command = ft_lstpurge(&cmd, (t_del) free_cmd, index);
-	hook_to_pipe((int *)&pipe->front, (int *)&pipe->back);
+	err = hook_to_pipe((int *)&pipe->front, (int *)&pipe->back);
+	if (err)
+		manage_error(err);
 	execute_pipe_segment(command, env);
 	return (child);
 }
