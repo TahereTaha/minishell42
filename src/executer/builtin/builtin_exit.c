@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:13:44 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/10 17:48:26 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:37:35 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,17 @@
 //	returns 1 on overflow of a int
 int	ps_intoverflow(char *str, int sign)
 {
-	long	first;
-	long	second;
-	int		i;
+	long long	first;
+	long long	second;
+	int			i;
 
 	i = 0;
-	first = 0;
-	second = 0;
+	first = -sign;
+	second = -sign;
 	while (ft_isdigit(str[i]))
 	{
 		first = (first * 10) + (str[i] - '0');
 		if (first < second)
-			return (1);
-		if ((sign && first > 2147483648) || (!sign && first > 2147483647))
 			return (1);
 		second = first;
 		i++;

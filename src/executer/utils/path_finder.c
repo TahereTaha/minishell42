@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:06:29 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 17:33:11 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:37:10 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	is_pathname(int *err_ref, char *cmd_name)
 	if (*err_ref)
 		return (0);
 	if (cmd_name[0] == '/')
+		return (1);
+	if (cmd_name[0] == '.' && cmd_name[1] == '/')
 		return (1);
 	return (0);
 }

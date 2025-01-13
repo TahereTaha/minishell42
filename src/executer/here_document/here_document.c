@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:51:49 by gasroman          #+#    #+#             */
-/*   Updated: 2025/01/12 19:38:47 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:49:03 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ static int	fill_heredoc(int fd, \
 		input = readline(">");
 		if (g_signal_num)
 			return (manage_signal(env));
-		if (!input)
+		if (!input && errno == ENOMEM)
 			return (ENOMEM);
+		if (!input)
+			return (HEREDOC_EOF);
 		if (!ft_strncmp(delimiter, input, -1))
 			return (0);
 		if (!has_quotes)
@@ -71,6 +73,11 @@ int	run_heredoc(t_redir *redir, t_env_ctx *env)
 	if (err)
 		return (err);
 	err = fill_heredoc(heredoc_pipe[1], env, redir->str, expand_env);
+	if (err == HEREDOC_EOF)
+	{
+		ft_putstr_fd("warning the heredoc ended in eof\n", 2);
+		err = 0;
+	}
 	if (err)
 		return (err);
 	close(heredoc_pipe[1]);

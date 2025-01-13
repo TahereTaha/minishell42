@@ -6,7 +6,7 @@
 /*   By: tatahere <tatahere@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:17:49 by tatahere          #+#    #+#             */
-/*   Updated: 2024/12/20 14:24:41 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:25:50 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,20 @@
 #include "libft.h"
 #include "minishell.h"
 
+static int	is_env(char *str)
+{
+	if (str[0] != '$')
+		return (0);
+	if (str[1] == '_' || ft_isalpha(str[1]) || str[1] == '?')
+		return (1);
+	return (0);
+}
+
 static size_t	get_section_len(char *str)
 {
 	size_t	len;
 
-	if (str[0] == '$')
+	if (is_env(str))
 		len = get_env_len(str);
 	else
 		len = get_plain_text_ext1_len(str);
@@ -32,7 +41,7 @@ static char	*get_section(char *str, t_env_ctx *env)
 {
 	char	*section;
 
-	if (str[0] == '$')
+	if (is_env(str))
 		section = get_env_str(str, env);
 	else
 		section = get_plain_text_ext1_str(str);

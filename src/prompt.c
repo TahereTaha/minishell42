@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:38:10 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/12 17:11:50 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:20:19 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ int	prompt(t_env_ctx *env)
 	}
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	return (get_status(0, env->exit_status));
+	return (0);
 }

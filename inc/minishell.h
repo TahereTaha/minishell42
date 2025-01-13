@@ -6,7 +6,7 @@
 /*   By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 18:53:33 by tatahere          #+#    #+#             */
-/*   Updated: 2025/01/13 10:28:02 by tatahere         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:32:24 by tatahere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ extern int				g_signal_num;
 
 void		handle_interactive(int signal_num);
 void		handle_non_interactive(int signal_num);
+void		handle_child(int signal_num);
 
 //======  enviroment  ======//
 
@@ -246,13 +247,6 @@ int			execute_command(t_cmd *cmd, t_env_ctx *env);
 
 int			double_free(char **ptr, char **_ptr);
 
-void		handle_siginth(int sig);
-int			get_break_it(int flag, int value);
-void		break_it(int signal);
-void		_sigint(int sig);
-int			get_status(int flag, int value);
-void		handle_signaled(int *status, int signal);
-
 //======  error handeling  ======//
 
 typedef enum e_minishell_errors
@@ -267,6 +261,7 @@ typedef enum e_minishell_errors
 	NO_PERMISION_CMD,
 	NO_FILE_NAME_ARG,
 	HEREDOC_INTERUPT,
+	HEREDOC_EOF,
 }	t_minishell_errors;
 
 void		manage_error(int err);

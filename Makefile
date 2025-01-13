@@ -6,7 +6,7 @@
 #    By: gasroman <gasroman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/22 17:26:50 by gasroman          #+#    #+#              #
-#    Updated: 2025/01/13 10:34:59 by tatahere         ###   ########.fr        #
+#    Updated: 2025/01/13 12:45:47 by tatahere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CINC			+=	-I$(INC_DIR)
 CFLAGS			+=	$(CINC)
 
 #	debug
-CDEBUG			+=	#-g -fsanitize=address
+CDEBUG			+=	-g -fsanitize=address
 CFLAGS			+=	$(CDEBUG)
 
 # ============================ files ========================================= #
